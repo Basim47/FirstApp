@@ -9,19 +9,21 @@ import {
 import React from 'react';
 //Icons
 import Icons from 'react-native-vector-icons/Feather';
+import { useSelector } from 'react-redux';
 
 const Noti = () => {
+  const themeMode = useSelector(state => state.theme.mode);
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1, backgroundColor: themeMode.background }}>
       <View
         style={{
           width: '100%',
           height: 50,
-          backgroundColor: '#fff',
+          backgroundColor: themeMode.background,
           justifyContent: 'center',
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
-          borderBottomColor: '#000',
+          borderBottomColor: themeMode.text,
           borderBottomWidth: 2,
           borderRightWidth: 1,
           borderLeftWidth: 1,
@@ -29,8 +31,8 @@ const Noti = () => {
         <Text
           style={{
             fontSize: 24,
-            fontFamily:'Nunito-Bold',
-            color: '#000',
+            fontFamily: 'Nunito-Bold',
+            color: themeMode.text,
             marginLeft: 14,
           }}>
           Notifications
@@ -42,31 +44,31 @@ const Noti = () => {
             width: 30,
             height: 30,
           }}>
-          <Icons name={'user-plus'} size={30} color={'#000'} />
+          <Icons name={'user-plus'} size={30} color={themeMode.text} />
         </TouchableOpacity>
       </View>
       <ScrollView>
-        <View style={{width: '100%', height: 100, padding: 10}}>
+        <View style={{ width: '100%', height: 100, padding: 10 }}>
           <Text
             style={{
               fontSize: 18,
-              fontFamily:'Nunito-Medium',
+              fontFamily: 'Nunito-Medium',
               marginLeft: 4,
-              color: '#000',
+              color: themeMode.text,
             }}>
             New Activity :
           </Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -92,34 +94,34 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.background,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
         </View>
-        <View style={{width: '100%', padding: 10}}>
+        <View style={{ width: '100%', padding: 10 }}>
           <Text
             style={{
               fontSize: 18,
-              fontFamily:'Nunito-Medium',
+              fontFamily: 'Nunito-Medium',
               marginLeft: 4,
-              color: '#000',
+              color: themeMode.text,
             }}>
             This Week :
           </Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -145,23 +147,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -187,23 +189,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -229,23 +231,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -271,23 +273,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -313,34 +315,34 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
         </View>
-        <View style={{width: '100%', padding: 10}}>
+        <View style={{ width: '100%', padding: 10 }}>
           <Text
             style={{
               fontSize: 18,
-              fontFamily:'Nunito-Medium',
+              fontFamily: 'Nunito-Medium',
               marginLeft: 4,
-              color: '#000',
+              color: themeMode.text,
             }}>
             This Month :
           </Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -366,23 +368,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -408,23 +410,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -450,23 +452,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -492,23 +494,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -534,23 +536,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -576,23 +578,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -618,23 +620,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -660,23 +662,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -702,23 +704,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -744,23 +746,23 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Image
               source={require('../assets/images/getodp.png')}
-              style={{width: 40, height: 40, borderRadius: 50, marginTop: 17}}
+              style={{ width: 40, height: 40, borderRadius: 50, marginTop: 17 }}
             />
             <Text
               style={{
                 fontSize: 14,
                 marginLeft: 7,
                 marginTop: 31,
-                color: '#000',
+                color: themeMode.text,
               }}>
               GETO liked your post.
             </Text>
@@ -786,10 +788,10 @@ const Noti = () => {
           </View>
           <View
             style={{
-              backgroundColor: 'grey',
+              backgroundColor: themeMode.text,
               width: '100%',
               height: 1,
-              opacity: 0.5,
+              opacity: 0.2,
               marginTop: 5,
             }}></View>
         </View>

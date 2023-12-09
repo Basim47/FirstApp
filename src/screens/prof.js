@@ -11,10 +11,12 @@ import Save from './save';
 import Out from './out';
 //Icons
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
 
 
 const Drawer = createDrawerNavigator();
 const Prof = () => {
+  const themeMode = useSelector(state => state.theme.mode);
   return (
     <Drawer.Navigator
       initialRouteName='Home'
@@ -42,11 +44,13 @@ const Prof = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
+
               <Icon
                 name={iconName}
                 size={focused ? 30 : 23}
-                color={focused ? '#fff' : 'grey'}
+                color={themeMode.text}
               />
+
             </View>
           );
         },
@@ -54,21 +58,23 @@ const Prof = () => {
         headerShown: false,
         drawerPosition: 'right',
         drawerType: 'front',
-        drawerActiveBackgroundColor: 'grey',
-        drawerActiveTintColor: '#fff',
+        drawerActiveBackgroundColor: themeMode.primary,
+        drawerActiveTintColor: themeMode.text,
         drawerItemStyle: {
           borderRadius: 30,
           paddingLeft: 10,
           marginVertical: 10,
         },
         drawerContentStyle: {
-          backgroundColor: '#e3e1e1',
+          backgroundColor: themeMode.background,
         },
         drawerLabelStyle: {
           fontSize: 18,
           fontFamily: 'Nunito-Bold',
+          color: themeMode.text,
+          textAlign: 'center'
         },
-        overlayColor: '#b3b5b4',
+        overlayColor: themeMode.primary,
       })}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Setting" component={Setting} />

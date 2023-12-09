@@ -4,17 +4,21 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import React, { useState } from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import * as Progress from 'react-native-progress';
+import auth from '@react-native-firebase/auth'
+import { useSelector } from 'react-redux';
 
 const Gallery = () => {
   const [imageRes, setimageRes] = useState('');
   const [uploadProgress, setuploadProgress] = useState(0);
   const [isLoading, setisLoading] = useState(false);
+  const val = useSelector((state) => state.muReducer)
+  const themeMode = useSelector(state => state.theme.mode);
+
 
   const handleGallery = () => {
     ImagePicker.openPicker({
@@ -32,9 +36,8 @@ const Gallery = () => {
   const upload = async uri => {
     try {
       setisLoading(true);
-      const strPart = uri.split('/');
-      const fileName = strPart[strPart.length - 1];
-      const reference = storage().ref(`Uploads/${fileName}`);
+      const user = auth().currentUser;
+      const reference = storage().ref(`${user.uid}/Posts/${new Date().getTime()}.jpg`)
 
       const task = reference.putFile(uri);
       task.on('state_changed', snapshot => {
@@ -45,18 +48,17 @@ const Gallery = () => {
 
       task.then(async () => {
         setisLoading(false);
-        Alert.alert('Uploaded');
         const url = await reference.getDownloadURL();
-        console.log({ url });
+        console.log(url);
       });
     } catch (error) {
       setisLoading(false);
-      Alert.alert('Failed', JSON.stringify(error));
+      console.log(error);
     }
   };
 
   return (
-    <View style={styles.mainwrapper}>
+    <View style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
       <Image
         source={
           imageRes ? { uri: imageRes } : require('../assets/images/alt.png')
@@ -77,8 +79,8 @@ const Gallery = () => {
             />
           </View>
         ) : (
-          <TouchableOpacity style={styles.btn} onPress={handleGallery}>
-            <Text style={styles.btntxt}>Upload</Text>
+          <TouchableOpacity style={[styles.btn, { backgroundColor: themeMode.input }]} onPress={handleGallery}>
+            <Text style={[styles.btntxt, { color: themeMode.primary }]}>Upload</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -91,7 +93,6 @@ export default Gallery;
 const styles = StyleSheet.create({
   mainwrapper: {
     flex: 1,
-    backgroundColor: '#FAF9F6',
   },
   imgcont: {
     width: '100%',
@@ -100,14 +101,12 @@ const styles = StyleSheet.create({
   btn: {
     padding: 10,
     borderRadius: 30,
-    backgroundColor: '#FAF9F6',
     width: 150,
     marginVertical: 30,
     elevation: 7,
     alignSelf: 'center',
   },
   btntxt: {
-    color: '#343148FF',
     textAlign: 'center',
     fontFamily: 'Nunito-Bold',
     fontSize: 18,

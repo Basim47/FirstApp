@@ -1,15 +1,17 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState, useEffect, useRef} from 'react';
-import MapView, {Marker, Circle, Polyline} from 'react-native-maps';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import MapView, { Marker, Circle, Polyline } from 'react-native-maps';
 //Icons
 import Icon from 'react-native-vector-icons/EvilIcons';
 //Permissions
-import {locationPermissionHandler} from '../utils/permissionHandler';
+import { locationPermissionHandler } from '../utils/permissionHandler';
+import { useSelector } from 'react-redux';
 
-const Maps = ({navigation}) => {
+const Maps = ({ navigation }) => {
   const [coords, setcoords] = useState({});
+  const themeMode = useSelector(state => state.theme.mode);
   const mapRef = useRef();
-  const origin = {latitude: 28.421129, longitude: 70.278874}
+  const origin = { latitude: 28.421129, longitude: 70.278874 }
 
   const markers = [
     {
@@ -79,8 +81,8 @@ const Maps = ({navigation}) => {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
-      
+    <View style={{ flex: 1, backgroundColor: themeMode.background }}>
+
       <MapView
         ref={mapRef}
         initialRegion={{
@@ -94,14 +96,14 @@ const Maps = ({navigation}) => {
           height: '100%',
           borderWidth: 2,
         }}>
-        
+
         <Polyline
           coordinates={[
-            {latitude: 28.421257, longitude: 70.298815},
-            {latitude: 28.421129, longitude: 70.278874},
-            {latitude: 28.431157, longitude: 70.278874},
-            {latitude: 28.431215, longitude: 70.298891},
-            {latitude: 28.442129, longitude: 70.298815},
+            { latitude: 28.421257, longitude: 70.298815 },
+            { latitude: 28.421129, longitude: 70.278874 },
+            { latitude: 28.431157, longitude: 70.278874 },
+            { latitude: 28.431215, longitude: 70.298891 },
+            { latitude: 28.442129, longitude: 70.298815 },
           ]}
           strokeColor="rgba(48, 115, 217,0.7)"
           strokeWidth={6}
@@ -128,92 +130,93 @@ const Maps = ({navigation}) => {
       <View
         style={{
           width: '100%',
-          height: 40,
-          backgroundColor: '#fff',
-          borderBottomLeftRadius: 30,
-          borderBottomRightRadius: 30,
-          borderWidth: 2,
-          borderBottomColor: '#000',
-          borderLeftColor: '#000',
-          borderRightColor: '#000',
+          height: 45,
+          backgroundColor: themeMode.background,
+          flexDirection: 'row',
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
+          borderBottomColor: themeMode.text,
+          borderBottomWidth: 2,
+          borderRightWidth: 1,
+          borderLeftWidth: 1,
           paddingHorizontal: 20,
-          position:'absolute',
-          flexDirection:'row'
+          position: 'absolute',
+          flexDirection: 'row'
         }}>
         <Text
           style={{
             fontSize: 24,
-            fontFamily:'Nunito-Bold',
-            color: '#000',
-            marginLeft:10
+            fontFamily: 'Nunito-Bold',
+            color: themeMode.text,
+            marginLeft: 10
           }}>
           Location
         </Text>
         <TouchableOpacity style={{
-          width:40,
-          height:40,
-          position:'absolute',
-          marginLeft:300,
-          marginTop:7
+          width: 40,
+          height: 40,
+          position: 'absolute',
+          marginLeft: 300,
+          marginTop: 7
         }}
-        onPress={() => navigation.openDrawer()}>
-        <Icon name={'navicon'} size={30} color={'#000'} />
+          onPress={() => navigation.openDrawer()}>
+          <Icon name={'navicon'} size={30} color={themeMode.text} />
         </TouchableOpacity>
       </View>
       <View
         style={{
           width: 50,
           height: 180,
-          backgroundColor: '#fff',
-          borderRadius:40,
-          padding:7,
-          borderWidth:1,
-          borderColor:'#000',
-          position:'absolute',
-          marginLeft:10,
-          marginTop:280,
-          justifyContent:'space-evenly'
+          backgroundColor: themeMode.primary,
+          borderRadius: 40,
+          borderWidth: 1,
+          borderColor: themeMode.input,
+          padding: 7,
+          position: 'absolute',
+          marginLeft: 10,
+          marginTop: 280,
+          justifyContent: 'space-evenly'
         }}>
-        
-          <TouchableOpacity
-            style={{
-              width: 35,
-              height: 35,
-              backgroundColor: '#e3e1e1',
-              elevation: 5,
-              borderRadius: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Icon name={'search'} size={30} color={'#000'} />
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{
-              width: 35,
-              height: 35,
-              backgroundColor: '#e3e1e1',
-              elevation: 5,
-              borderRadius: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Icon name={'location'} size={30} color={'#000'} />
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            width: 35,
+            height: 35,
+            backgroundColor: themeMode.input,
+            elevation: 5,
+            borderRadius: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Icon name={'search'} size={30} color={themeMode.background} />
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{
-              width: 35,
-              height: 35,
-              backgroundColor: '#e3e1e1',
-              elevation: 5,
-              borderRadius: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Icon name={'navicon'} size={30} color={'#000'} />
-          </TouchableOpacity>
-        
+        <TouchableOpacity
+          style={{
+            width: 35,
+            height: 35,
+            backgroundColor: themeMode.input,
+            elevation: 5,
+            borderRadius: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Icon name={'location'} size={30} color={themeMode.background} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            width: 35,
+            height: 35,
+            backgroundColor: themeMode.input,
+            elevation: 5,
+            borderRadius: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Icon name={'navicon'} size={30} color={themeMode.background} />
+        </TouchableOpacity>
+
       </View>
     </View>
   );

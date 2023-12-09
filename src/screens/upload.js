@@ -1,21 +1,23 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 //Navigation
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 //Screens
 import Camera from './camera';
 import Gallery from './gallery';
 //Icons
 import Entypo from 'react-native-vector-icons/Entypo';
+import { useSelector } from 'react-redux';
 
 const Top = createMaterialTopTabNavigator();
 const Upload = () => {
+  const themeMode = useSelector(state => state.theme.mode);
   return (
     <Top.Navigator
-      screenOptions={({route}) => ({
+      screenOptions={({ route }) => ({
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: '#e3e1e1',
+          backgroundColor: themeMode.background,
           height: 60,
           elevation: 7,
         },
@@ -23,9 +25,9 @@ const Upload = () => {
           width: 60,
           height: 35,
         },
-        tabBarPressColor: '#333333',
+        tabBarPressColor: themeMode.input,
         tabBarIndicatorStyle: {
-          backgroundColor: '#333333',
+          backgroundColor: themeMode.text,
           width: 90,
           marginLeft: 47,
         },
@@ -33,7 +35,7 @@ const Upload = () => {
           justifyContent: 'center',
         },
 
-        tabBarIcon: ({focused}) => {
+        tabBarIcon: ({ focused }) => {
           let iconName;
 
           if (route.name === 'Camera') {
@@ -48,22 +50,40 @@ const Upload = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Entypo
-                name={iconName}
-                size={focused ? 25 : 35}
-                color={focused ? '#333333' : 'grey'}
-              />
-              {focused && (
-                <Text
-                  style={{
-                    color: focused ? '#333333' : 'grey',
-                    fontSize: 16,
-                    textAlign: 'center',
-                    fontFamily: 'Nunito-Bold',
-                  }}>
-                  {route.name}
-                </Text>
-              )}
+              {themeMode.mode === 'dark' ?
+                <><Entypo
+                  name={iconName}
+                  size={focused ? 25 : 35}
+                  color={focused ? '#fff' : 'grey'}
+                />
+                  {focused && (
+                    <Text
+                      style={{
+                        color: focused ? '#fff' : 'grey',
+                        fontSize: 16,
+                        textAlign: 'center',
+                        fontFamily: 'Nunito-Bold',
+                      }}>
+                      {route.name}
+                    </Text>
+                  )}</>
+                :
+                <><Entypo
+                  name={iconName}
+                  size={focused ? 25 : 35}
+                  color={focused ? '#333333' : 'grey'}
+                />
+                  {focused && (
+                    <Text
+                      style={{
+                        color: focused ? '#333333' : 'grey',
+                        fontSize: 16,
+                        textAlign: 'center',
+                        fontFamily: 'Nunito-Bold',
+                      }}>
+                      {route.name}
+                    </Text>
+                  )}</>}
             </View>
           );
         },

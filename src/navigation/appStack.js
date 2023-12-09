@@ -10,10 +10,12 @@ import Search from '../screens/search';
 import Reels from '../screens/reels';
 //Icons
 import Icons from 'react-native-vector-icons/Feather';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
 const AppStack = () => {
+  const themeMode = useSelector(state => state.theme.mode);
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -39,39 +41,64 @@ const AppStack = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Icons
-                name={iconName}
-                size={focused ? 23 : 27}
-                color={focused ? '#fff' : 'grey'}
-              />
-              {focused && (
-                <Text
-                  style={{
-                    color: focused ? '#fff' : 'grey',
-                    fontSize: 12,
-                    textAlign: 'center',
-                    fontFamily: 'Nunito-Regular',
-                  }}>
-                  {route.name}
-                </Text>
-              )}
+              {themeMode.mode === 'dark' ?
+                <>
+                  <Icons
+                    name={iconName}
+                    size={focused ? 23 : 27}
+                    color={focused ? '#333' : '#fff'}
+                  />
+                  {focused && (
+                    <Text
+                      style={{
+                        color: focused ? '#333' : '#fff',
+                        fontSize: 12,
+                        textAlign: 'center',
+                        fontFamily: 'Nunito-Regular',
+                      }}>
+                      {route.name}
+                    </Text>
+                  )}
+                </>
+                :
+                <>
+                  <Icons
+                    name={iconName}
+                    size={focused ? 23 : 27}
+                    color={focused ? '#fff' : '#333'}
+                  />
+                  {focused && (
+                    <Text
+                      style={{
+                        color: focused ? '#fff' : '#333',
+                        fontSize: 12,
+                        textAlign: 'center',
+                        fontFamily: 'Nunito-Regular',
+                      }}>
+                      {route.name}
+                    </Text>
+                  )}
+                </>
+              }
             </View>
           );
         },
-        tabBarActiveBackgroundColor: '#333333',
+        tabBarActiveBackgroundColor: themeMode.text,
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: '#e3e1e1',
+          backgroundColor: themeMode.primary,
           position: 'absolute',
           marginHorizontal: 10,
           marginVertical: 5,
           height: 50,
           borderRadius: 22,
           elevation: 5,
+          borderWidth: 1,
+          borderColor: themeMode.primary
         },
         tabBarItemStyle: {
-          borderRadius: 20,
+          borderRadius: 22,
         },
       })}>
       <Tab.Screen name="Home" component={App} />

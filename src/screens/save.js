@@ -1,9 +1,11 @@
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Save = () => {
+  const themeMode = useSelector(state => state.theme.mode);
   return (
-    <View style={{flex: 1, backgroundColor: '#333333'}}>
+    <View style={{ flex: 1, backgroundColor: themeMode.background }}>
       <ScrollView>
         <View
           style={{

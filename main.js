@@ -14,6 +14,9 @@ import { LogLevel, OneSignal } from 'react-native-onesignal';
 //Firebase
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+//Redux
+import { Provider } from 'react-redux';
+import store from './src/store';
 
 const Stack = createNativeStackNavigator();
 const Main = () => {
@@ -61,28 +64,28 @@ const Main = () => {
 
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        {user ? (
-          <>
-            <Stack.Screen name="AppStack" component={AppStack} />
-            <Stack.Screen name="Maps" component={Maps} />
-
-            <Stack.Screen name='Others' component={Others} />
-          </>
-        ) : (
-          <>
-
-            <Stack.Screen name="Onboard" component={Onboard} />
-            <Stack.Screen name="Todo" component={Todo} />
-            <Stack.Screen name="AuthStack" component={AuthStack} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          {user ? (
+            <>
+              <Stack.Screen name="AppStack" component={AppStack} />
+              <Stack.Screen name="Maps" component={Maps} />
+              <Stack.Screen name='Others' component={Others} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Onboard" component={Onboard} />
+              <Stack.Screen name="Todo" component={Todo} />
+              <Stack.Screen name="AuthStack" component={AuthStack} />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

@@ -15,6 +15,9 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 //Permissions
 import { requestUserPermission, notificationListener } from './src/services/fireMsg';
 import { PermissionsAndroid } from 'react-native';
+//Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTheme } from './src/store/themeSlice';
 
 const DATA = [
   {
@@ -109,6 +112,13 @@ const App = ({ navigation }) => {
   const toggleModal2 = () => {
     setModal2Visible(!modal2Visible);
   };
+  //DarkMode
+  const dispatch = useDispatch();
+  const handleToggle = () => {
+    dispatch(toggleTheme());
+  };
+  const themeMode = useSelector(state => state.theme.mode);
+  const imageUrl = useSelector((state) => state.image.imageUrl)
 
   //Android 13 Permissions
   PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
@@ -116,7 +126,8 @@ const App = ({ navigation }) => {
   useEffect(() => {
     requestUserPermission();
     notificationListener();
-  }, [])
+  }, []);
+
 
   const renderstory_ = ({ item, index }) => {
     return (
@@ -143,7 +154,7 @@ const App = ({ navigation }) => {
             fontSize: 13,
             justifyContent: 'flex-end',
             textAlign: 'center',
-            color: '#000',
+            color: themeMode.text,
             fontFamily: 'Nunito-Bold',
           }}>
           {item.name}
@@ -168,7 +179,7 @@ const App = ({ navigation }) => {
             style={{
               height: '40%',
               width: '100%',
-              backgroundColor: '#333333',
+              backgroundColor: themeMode.primary,
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
               paddingHorizontal: 10,
@@ -180,8 +191,9 @@ const App = ({ navigation }) => {
               style={{
                 width: 30,
                 height: 5,
+                marginBottom: 20,
                 borderRadius: 40,
-                backgroundColor: 'lightgray',
+                backgroundColor: themeMode.text,
                 alignSelf: 'center',
               }}></View>
             <ScrollView>
@@ -193,12 +205,13 @@ const App = ({ navigation }) => {
                   marginLeft: 15,
                   alignItems: 'center',
                 }}>
-                <Icon name={'edit'} size={24} />
+                <Icon name={'edit'} size={24} color={themeMode.text} />
                 <Text
                   style={{
                     fontFamily: 'Nunito-Medium',
                     fontSize: 18,
                     marginLeft: 17,
+                    color: themeMode.text
                   }}>
                   Edit
                 </Text>
@@ -207,7 +220,7 @@ const App = ({ navigation }) => {
                 style={{
                   width: '100%',
                   height: 1,
-                  backgroundColor: '#757575',
+                  backgroundColor: themeMode.text,
                   opacity: 0.3,
                 }}></View>
 
@@ -219,12 +232,13 @@ const App = ({ navigation }) => {
                   marginLeft: 15,
                   alignItems: 'center',
                 }}>
-                <Icon name={'trash-o'} size={24} />
+                <Icon name={'trash-o'} size={24} color={themeMode.text} />
                 <Text
                   style={{
                     fontFamily: 'Nunito-Medium',
                     fontSize: 18,
                     marginLeft: 20,
+                    color: themeMode.text
                   }}>
                   Delete
                 </Text>
@@ -233,7 +247,7 @@ const App = ({ navigation }) => {
                 style={{
                   width: '100%',
                   height: 1,
-                  backgroundColor: '#757575',
+                  backgroundColor: themeMode.text,
                   opacity: 0.3,
                 }}></View>
 
@@ -245,12 +259,13 @@ const App = ({ navigation }) => {
                   marginLeft: 15,
                   alignItems: 'center',
                 }}>
-                <Icon name={'download'} size={22} />
+                <Icon name={'download'} size={22} color={themeMode.text} />
                 <Text
                   style={{
                     fontFamily: 'Nunito-Medium',
                     fontSize: 18,
                     marginLeft: 19,
+                    color: themeMode.text
                   }}>
                   Download
                 </Text>
@@ -259,7 +274,7 @@ const App = ({ navigation }) => {
                 style={{
                   width: '100%',
                   height: 1,
-                  backgroundColor: '#757575',
+                  backgroundColor: themeMode.text,
                   opacity: 0.3,
                 }}></View>
 
@@ -271,12 +286,13 @@ const App = ({ navigation }) => {
                   marginLeft: 17,
                   alignItems: 'center',
                 }}>
-                <Icon name={'bookmark-o'} size={24} />
+                <Icon name={'bookmark-o'} size={24} color={themeMode.text} />
                 <Text
                   style={{
                     fontFamily: 'Nunito-Medium',
                     fontSize: 18,
                     marginLeft: 20,
+                    color: themeMode.text
                   }}>
                   Save
                 </Text>
@@ -285,7 +301,7 @@ const App = ({ navigation }) => {
                 style={{
                   width: '100%',
                   height: 1,
-                  backgroundColor: '#757575',
+                  backgroundColor: themeMode.text,
                   opacity: 0.3,
                 }}></View>
 
@@ -297,12 +313,13 @@ const App = ({ navigation }) => {
                   marginLeft: 15,
                   alignItems: 'center',
                 }}>
-                <Icon name={'send-o'} size={20} />
+                <Icon name={'send-o'} size={20} color={themeMode.text} />
                 <Text
                   style={{
                     fontFamily: 'Nunito-Medium',
                     fontSize: 18,
                     marginLeft: 19,
+                    color: themeMode.text
                   }}>
                   Share
                 </Text>
@@ -311,7 +328,7 @@ const App = ({ navigation }) => {
                 style={{
                   width: '100%',
                   height: 1,
-                  backgroundColor: '#757575',
+                  backgroundColor: themeMode.text,
                   opacity: 0.3,
                 }}></View>
 
@@ -323,12 +340,13 @@ const App = ({ navigation }) => {
                   marginLeft: 15,
                   alignItems: 'center',
                 }}>
-                <Icon name={'share-square-o'} size={22} />
+                <Icon name={'share-square-o'} size={22} color={themeMode.text} />
                 <Text
                   style={{
                     fontFamily: 'Nunito-Medium',
                     fontSize: 18,
                     marginLeft: 18,
+                    color: themeMode.text
                   }}>
                   Share Profile
                 </Text>
@@ -346,7 +364,7 @@ const App = ({ navigation }) => {
             style={{
               height: '55%',
               width: '100%',
-              backgroundColor: '#000',
+              backgroundColor: themeMode.background,
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
               marginTop: 370,
@@ -356,7 +374,7 @@ const App = ({ navigation }) => {
               style={{
                 width: '100%',
                 height: 150,
-                backgroundColor: '#333333',
+                backgroundColor: themeMode.primary,
                 borderTopLeftRadius: 20,
                 borderTopRightRadius: 20,
                 paddingTop: 10,
@@ -367,7 +385,7 @@ const App = ({ navigation }) => {
                   width: 30,
                   height: 5,
                   borderRadius: 40,
-                  backgroundColor: 'lightgray',
+                  backgroundColor: themeMode.text,
                   alignSelf: 'center',
                 }}></View>
               <View
@@ -380,7 +398,7 @@ const App = ({ navigation }) => {
                     width: 50,
                     height: 50,
                     borderRadius: 10,
-                    backgroundColor: '#fff',
+                    backgroundColor: themeMode.text,
                   }}></View>
                 <View
                   style={{
@@ -390,7 +408,7 @@ const App = ({ navigation }) => {
                   }}>
                   <Text
                     style={{
-                      color: '#fff',
+                      color: themeMode.text,
                       fontSize: 18,
                       fontFamily: 'Nunito-Medium',
                     }}>
@@ -412,7 +430,7 @@ const App = ({ navigation }) => {
                     marginLeft: 260,
                     marginTop: 18,
                   }}>
-                  <Icon name={'bookmark'} size={24} color={'#fff'} />
+                  <Icon name={'bookmark'} size={24} color={themeMode.text} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -427,7 +445,7 @@ const App = ({ navigation }) => {
                   width: 50,
                   height: 50,
                   borderRadius: 10,
-                  backgroundColor: '#fff',
+                  backgroundColor: themeMode.text,
                 }}></View>
               <View
                 style={{
@@ -439,7 +457,7 @@ const App = ({ navigation }) => {
                   style={{
                     fontFamily: 'Nunito-Medium',
                     fontSize: 18,
-                    color: '#fff',
+                    color: themeMode.text,
                   }}>
                   Collection's
                 </Text>
@@ -460,7 +478,7 @@ const App = ({ navigation }) => {
                   marginLeft: 256,
                   marginTop: 18,
                 }}>
-                <Icon name={'plus-square-o'} size={22} color={'#fff'} />
+                <Icon name={'plus-square-o'} size={22} color={themeMode.text} />
               </TouchableOpacity>
             </View>
           </View>
@@ -475,7 +493,7 @@ const App = ({ navigation }) => {
             style={{
               height: '55%',
               width: '100%',
-              backgroundColor: '#000',
+              backgroundColor: themeMode.primary,
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
               marginTop: 370,
@@ -485,7 +503,7 @@ const App = ({ navigation }) => {
               style={{
                 width: 35,
                 height: 5,
-                backgroundColor: 'grey',
+                backgroundColor: themeMode.text,
                 alignSelf: 'center',
                 marginTop: 9,
                 borderRadius: 50,
@@ -499,7 +517,7 @@ const App = ({ navigation }) => {
                 style={{
                   fontFamily: 'Nunito-Medium',
                   fontSize: 14,
-                  color: '#fff',
+                  color: themeMode.text,
                   textAlign: 'center',
                 }}>
                 Comments
@@ -510,7 +528,7 @@ const App = ({ navigation }) => {
                 width: '100%',
                 height: 1,
                 opacity: 0.7,
-                backgroundColor: '#333333',
+                backgroundColor: themeMode.text,
                 marginTop: 8,
               }}></View>
             <ScrollView>
@@ -518,6 +536,7 @@ const App = ({ navigation }) => {
                 style={{
                   fontSize: 20,
                   textAlign: 'center',
+                  color: themeMode.text
                 }}>
                 ScrollView here
               </Text>
@@ -539,7 +558,7 @@ const App = ({ navigation }) => {
 
           <Text
             style={{
-              color: '#000',
+              color: themeMode.text,
               fontSize: 13,
               fontFamily: 'Nunito-Bold',
               marginTop: 13,
@@ -549,7 +568,7 @@ const App = ({ navigation }) => {
 
           <Text
             style={{
-              color: '#000',
+              color: themeMode.text,
               fontSize: 13,
               fontFamily: 'Nunito-Bold',
               marginTop: 13,
@@ -567,7 +586,7 @@ const App = ({ navigation }) => {
               marginLeft: 321,
               marginTop: 10,
             }}>
-            <Icons name={'dots-vertical'} size={28} color={'#000'} />
+            <Icons name={'dots-vertical'} size={28} color={themeMode.text} />
           </Pressable>
         </View>
 
@@ -590,7 +609,7 @@ const App = ({ navigation }) => {
               marginLeft: 14,
               marginTop: 6,
             }}>
-            <Icon name={'heart-o'} size={22} color={'#000'} />
+            <Icon name={'heart-o'} size={22} color={themeMode.text} />
           </View>
 
           <Pressable
@@ -601,7 +620,7 @@ const App = ({ navigation }) => {
               marginLeft: 10,
               marginTop: 5,
             }}>
-            <Icon name={'comment-o'} size={22} color={'#000'} />
+            <Icon name={'comment-o'} size={22} color={themeMode.text} />
           </Pressable>
 
           <View
@@ -611,7 +630,7 @@ const App = ({ navigation }) => {
               marginLeft: 9,
               marginTop: 6,
             }}>
-            <Icon name={'send-o'} size={20} color={'#000'} />
+            <Icon name={'send-o'} size={20} color={themeMode.text} />
           </View>
 
           <Pressable
@@ -623,15 +642,15 @@ const App = ({ navigation }) => {
               marginLeft: 325,
               marginTop: 6,
             }}>
-            <Icon name={'bookmark-o'} size={22} color={'#000'} />
+            <Icon name={'bookmark-o'} size={22} color={themeMode.text} />
           </Pressable>
         </View>
 
         <Text
           style={{
-            color: '#000',
-            marginLeft: 10,
-            fontSize: 15,
+            color: themeMode.text,
+            marginLeft: 12,
+            fontSize: 13,
             fontFamily: 'Nunito-Medium',
           }}>
           {item.text}
@@ -643,8 +662,8 @@ const App = ({ navigation }) => {
           }}>
           <Text
             style={{
-              color: '#000',
-              marginLeft: 10,
+              color: themeMode.text,
+              marginLeft: 12,
               fontSize: 13,
               fontFamily: 'Nunito-Bold',
             }}>
@@ -653,7 +672,7 @@ const App = ({ navigation }) => {
 
           <Text
             style={{
-              color: '#000',
+              color: themeMode.text,
               marginLeft: 5,
               fontSize: 13,
               fontFamily: 'Nunito-Medium',
@@ -669,7 +688,7 @@ const App = ({ navigation }) => {
     <View
       style={{
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: themeMode.background,
       }}>
       <FlatList
         data={DATA}
@@ -692,12 +711,33 @@ const App = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 30,
-                  color: '#000',
+                  color: themeMode.text,
                   fontFamily: 'Grandista',
                   paddingLeft: 10,
                 }}>
                 Instagram
               </Text>
+              <TouchableOpacity
+                onPress={() => handleToggle()}
+                style={{
+                  width: 40,
+                  height: 35,
+                  position: 'absolute',
+                  marginLeft: 210,
+                  marginTop: 5,
+                  borderRadius: 30,
+                  justifyContent: "center",
+                  alignItems: 'center'
+                }}>
+                {themeMode.mode === 'dark' ?
+                  <>
+                    <Icon name={'sun-o'} size={26} color="#fff" />
+                  </>
+                  :
+                  <>
+                    <Icon name={'moon-o'} size={26} color="#333333" />
+                  </>}
+              </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Others', { screen: 'Noti' })}
                 style={{
@@ -707,7 +747,7 @@ const App = ({ navigation }) => {
                   marginLeft: 270,
                   marginTop: 10,
                 }}>
-                <Icon name={'heart-o'} size={24} color={'#000'} />
+                <Icon name={'heart-o'} size={24} color={themeMode.text} />
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -719,14 +759,11 @@ const App = ({ navigation }) => {
                   marginLeft: 315,
                   marginTop: 10,
                 }}>
-                <Icons name={'facebook-messenger'} size={27} color={'#000'} />
+                <Icons name={'facebook-messenger'} size={27} color={themeMode.text} />
               </TouchableOpacity>
             </View>
 
-            <View
-              style={{
-                flexDirection: 'row',
-              }}>
+            <View>
               <FlatList
                 data={DATA}
                 style={{
@@ -742,20 +779,25 @@ const App = ({ navigation }) => {
                       marginHorizontal: 5,
                       marginVertical: 3,
                     }}>
-                    <View
+
+                    <Image
+                      source={
+                        imageUrl ? { uri: imageUrl } : require('./src/assets/images/user.jpeg')
+                      }
                       style={{
                         width: 80,
                         height: 80,
                         borderRadius: 50,
                         borderWidth: 3,
-                        borderColor: 'grey',
-                        backgroundColor: '#000',
-                      }}></View>
+                        borderColor: 'green',
+                      }}
+                      resizeMode="cover"
+                    />
 
                     <Text
                       style={{
                         fontSize: 14,
-                        color: '#000',
+                        color: themeMode.text,
                         textAlign: 'center',
                         fontFamily: 'Nunito-Medium',
                       }}>
@@ -776,7 +818,7 @@ const App = ({ navigation }) => {
             style={{
               width: '100%',
               height: 1,
-              backgroundColor: '#858282',
+              backgroundColor: themeMode.text,
               opacity: 0.2,
             }}></View>
         )}

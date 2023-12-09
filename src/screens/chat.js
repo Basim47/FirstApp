@@ -13,8 +13,10 @@ import React from 'react';
 import Icons from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-crop-picker';
+import { useSelector } from 'react-redux';
 
 const Chat = () => {
+  const themeMode = useSelector(state => state.theme.mode);
   const handleCamera = () => {
     ImagePicker.openCamera({
       width: 500,
@@ -30,16 +32,19 @@ const Chat = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{
+      flex: 1,
+      backgroundColor: themeMode.background
+    }}>
       <View
         style={{
           width: '100%',
           height: 45,
-          backgroundColor: '#fff',
+          backgroundColor: themeMode.background,
           flexDirection: 'row',
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
-          borderBottomColor: '#000',
+          borderBottomColor: themeMode.text,
           borderBottomWidth: 2,
           borderRightWidth: 1,
           borderLeftWidth: 1,
@@ -48,7 +53,7 @@ const Chat = () => {
           style={{
             fontSize: 20,
             fontFamily: 'Nunito-Bold',
-            color: '#000',
+            color: themeMode.text,
             marginTop: 6,
             marginLeft: 16,
           }}>
@@ -56,7 +61,7 @@ const Chat = () => {
         </Text>
         <TouchableOpacity
           style={{ width: 30, height: 20, marginTop: 15, marginLeft: 3 }}>
-          <Icons name={'down'} size={15} color={'grey'} />
+          <Icons name={'down'} size={15} color={themeMode.text} />
         </TouchableOpacity>
       </View>
       <View>
@@ -67,15 +72,15 @@ const Chat = () => {
             marginLeft: 19,
             marginVertical: 10,
             paddingLeft: 50,
-            backgroundColor: '#e3e1e1',
+            backgroundColor: themeMode.primary,
             borderRadius: 30,
-            color: '#333333',
+            color: themeMode.input,
             elevation: 6,
             fontSize: 16,
-            fontFamily: 'Nunito-Italic',
+            fontFamily: 'Nunito-Regular',
           }}
           placeholder="Search"
-          placeholderTextColor={'#000'}
+          placeholderTextColor={themeMode.input}
         />
         <TouchableOpacity
           style={{
@@ -85,7 +90,7 @@ const Chat = () => {
             width: 35,
             height: 35,
           }}>
-          <Icon name={'search'} size={20} color={'#333333'} />
+          <Icon name={'search'} size={20} color={themeMode.input} />
         </TouchableOpacity>
       </View>
 
@@ -104,7 +109,7 @@ const Chat = () => {
               justifyContent: 'center',
             }}>
             <Text
-              style={{ fontSize: 19, fontFamily: 'Nunito-Bold', color: '#000' }}>
+              style={{ fontSize: 19, fontFamily: 'Nunito-Bold', color: themeMode.text }}>
               Online
             </Text>
           </View>
@@ -259,15 +264,15 @@ const Chat = () => {
             alignItems: 'center',
           }}>
           <Text
-            style={{ fontSize: 19, fontFamily: 'Nunito-Bold', color: '#000' }}>
+            style={{ fontSize: 19, fontFamily: 'Nunito-Bold', color: themeMode.text }}>
             Messeges
           </Text>
           <TouchableOpacity>
             <Text
               style={{
                 fontSize: 16,
-                color: 'blue',
-                marginLeft: 180,
+                color: '#1b6ef5',
+                marginLeft: 175,
                 fontFamily: 'Nunito-Regular',
               }}>
               Requests
@@ -289,7 +294,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -308,7 +313,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -327,7 +332,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -346,7 +351,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -365,7 +370,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -384,7 +389,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -403,7 +408,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -422,7 +427,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -441,7 +446,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -460,7 +465,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -479,7 +484,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -498,7 +503,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -517,7 +522,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -536,7 +541,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -555,7 +560,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -574,7 +579,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
         <View style={{ width: '100%', height: 60, flexDirection: 'row' }}>
@@ -592,7 +597,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -611,7 +616,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -630,7 +635,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -649,7 +654,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -668,7 +673,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -687,7 +692,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -706,7 +711,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -725,7 +730,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -744,7 +749,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -763,7 +768,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -782,7 +787,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -801,7 +806,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -820,7 +825,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -839,7 +844,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
 
@@ -858,7 +863,7 @@ const Chat = () => {
             <Text
               style={{
                 fontSize: 14,
-                color: '#000',
+                color: themeMode.text,
                 marginTop: 14,
                 marginLeft: 5,
               }}>
@@ -877,7 +882,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={handleCamera}
             style={{ position: 'absolute', marginLeft: 320, marginTop: 15 }}>
-            <Icon name={'camera'} size={28} color={'#000'} />
+            <Icon name={'camera'} size={28} color={themeMode.text} />
           </TouchableOpacity>
         </View>
       </ScrollView>

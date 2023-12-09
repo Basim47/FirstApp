@@ -9,10 +9,15 @@ import {
 import React from 'react';
 //Icons
 import Icons from 'react-native-vector-icons/Feather';
+import { useSelector } from 'react-redux';
 
 const Search = () => {
+  const themeMode = useSelector(state => state.theme.mode);
   return (
-    <View style={{flex: 1, backgroundColor: '#333333'}}>
+    <View style={{
+      flex: 1,
+      backgroundColor: themeMode.background,
+    }}>
       <TextInput
         style={{
           width: '90%',
@@ -25,7 +30,7 @@ const Search = () => {
           color: '#333333',
           elevation: 6,
           fontSize: 20,
-          fontFamily:'Nunito-Bold'
+          fontFamily: 'Nunito-Bold'
         }}
         placeholder="Search"
         placeholderTextColor={'#000'}
