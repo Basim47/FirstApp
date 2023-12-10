@@ -1,17 +1,11 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import * as Progress from 'react-native-progress';
-import auth from '@react-native-firebase/auth'
+import auth from '@react-native-firebase/auth';
 import { useSelector } from 'react-redux';
-import Video from 'react-native-video'
+import Video from 'react-native-video';
 
 const Gallery = () => {
   const [selectedMedia, setSelectedMedia] = useState(null);
@@ -19,28 +13,28 @@ const Gallery = () => {
   const [isLoading, setisLoading] = useState(false);
   const themeMode = useSelector(state => state.theme.mode);
 
-
   const handleGallery = async () => {
     try {
       const result = await ImagePicker.openPicker({
-        width: 500,
-        height: 500,
+        width: 400,
+        height: 400,
         mediaType: 'any',
-      })
+      });
       if (result) {
-        setSelectedMedia(result)
+        setSelectedMedia(result);
       }
     } catch (error) {
       console.log(error);
     }
-
   };
 
   const upload = async (path, type) => {
     try {
       setisLoading(true);
       const user = auth().currentUser;
-      const reference = storage().ref(`${user.uid}/Posts/${new Date().getTime()}.jpg`)
+      const reference = storage().ref(
+        `${user.uid}/Posts/${new Date().getTime()}`,
+      );
 
       const task = reference.putFile(path);
       task.on('state_changed', snapshot => {
@@ -72,41 +66,22 @@ const Gallery = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#EC8B5E' }}>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginBottom: 35,
-          marginTop: 25,
-        }}>
-        <TouchableOpacity
-          onPress={handleGallery}
-          style={{
-            borderWidth: 1,
-            borderRadius: 35,
-            width: 130,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#141A46',
-          }}>
-          <Text style={{ fontSize: 20, fontWeight: '500', color: 'white' }}>
-            Select Media
-          </Text>
-        </TouchableOpacity>
-      </View>
+    <View style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
       {selectedMedia && selectedMedia.mime.startsWith('image') ? (
         <Image
           source={{ uri: selectedMedia.path || selectedMedia.sourceURL }}
-          style={{ width: 360, height: 360, resizeMode: 'cover' }}
+          style={{ width: 360, height: 380 }}
+          resizeMode='cover'
         />
       ) : null}
 
       {selectedMedia && selectedMedia.mime.startsWith('video') ? (
         <Video
           source={{ uri: selectedMedia.path || selectedMedia.sourceURL }}
-          style={{ width: 360, height: 360 }}
-          controls
+          style={{ width: '100%', height: 380, }}
+          // controls
+          resizeMode='cover'
+
         />
       ) : null}
 
@@ -115,24 +90,21 @@ const Gallery = () => {
           <Progress.Bar progress={uploadProgress} width={200} />
         </View>
       )}
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginBottom: 35,
-          marginTop: 25,
-        }}>
+      <View>
+        <TouchableOpacity
+          onPress={handleGallery}
+          style={[styles.btn, { backgroundColor: themeMode.primary }]}>
+          <Text style={[styles.btntxt, { color: themeMode.text }]}>
+            Select Media
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <View>
         <TouchableOpacity
           onPress={handleUpload}
-          style={{
-            borderWidth: 1,
-            borderRadius: 35,
-            width: 130,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#141A46',
-          }}>
-          <Text style={{ fontSize: 20, fontWeight: '500', color: 'white' }}>
+          style={[styles.btn, { backgroundColor: themeMode.input }]}>
+          <Text style={[styles.btntxt, { color: themeMode.primary }]}>
             Upload
           </Text>
         </TouchableOpacity>
