@@ -33,7 +33,7 @@ const Gallery = () => {
       setisLoading(true);
       const user = auth().currentUser;
       const reference = storage().ref(
-        `${user.uid}/Posts/${new Date().getTime()}`,
+        `${user.uid}/Posts/${type}/${new Date().getTime()}`,
       );
 
       const task = reference.putFile(path);
