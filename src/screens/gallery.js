@@ -11,35 +11,38 @@ import storage from '@react-native-firebase/storage';
 import * as Progress from 'react-native-progress';
 import auth from '@react-native-firebase/auth'
 import { useSelector } from 'react-redux';
+import Video from 'react-native-video'
 
 const Gallery = () => {
-  const [imageRes, setimageRes] = useState('');
+  const [selectedMedia, setSelectedMedia] = useState(null);
   const [uploadProgress, setuploadProgress] = useState(0);
   const [isLoading, setisLoading] = useState(false);
-  const val = useSelector((state) => state.muReducer)
   const themeMode = useSelector(state => state.theme.mode);
 
 
-  const handleGallery = () => {
-    ImagePicker.openPicker({
-      width: 500,
-      height: 500,
-      mediaType: 'any',
-    })
-      .then(res => {
-        setimageRes(res.path);
-        upload(res.path);
+  const handleGallery = async () => {
+    try {
+      const result = await ImagePicker.openPicker({
+        width: 500,
+        height: 500,
+        mediaType: 'any',
       })
-      .catch(err => { });
+      if (result) {
+        setSelectedMedia(result)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   };
 
-  const upload = async uri => {
+  const upload = async (path, type) => {
     try {
       setisLoading(true);
       const user = auth().currentUser;
       const reference = storage().ref(`${user.uid}/Posts/${new Date().getTime()}.jpg`)
 
-      const task = reference.putFile(uri);
+      const task = reference.putFile(path);
       task.on('state_changed', snapshot => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -57,32 +60,82 @@ const Gallery = () => {
     }
   };
 
+  const handleUpload = () => {
+    if (selectedMedia) {
+      const mediaType = selectedMedia.mime.startsWith('image')
+        ? 'images'
+        : 'videos';
+      const path = selectedMedia.path || selectedMedia.sourceURL;
+
+      upload(path, mediaType);
+    }
+  };
+
   return (
-    <View style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
-      <Image
-        source={
-          imageRes ? { uri: imageRes } : require('../assets/images/alt.png')
-        }
-        style={styles.imgcont}
-        resizeMode="cover"
-      />
-      <View>
-        {isLoading ? (
-          <View style={styles.progwrap}>
-            <Text style={styles.progtitle}>Uploading..</Text>
-            <Progress.Bar
-              progress={uploadProgress}
-              width={300}
-              height={10}
-              color="#343148FF"
-              borderColor="#343148FF"
-            />
-          </View>
-        ) : (
-          <TouchableOpacity style={[styles.btn, { backgroundColor: themeMode.input }]} onPress={handleGallery}>
-            <Text style={[styles.btntxt, { color: themeMode.primary }]}>Upload</Text>
-          </TouchableOpacity>
-        )}
+    <View style={{ flex: 1, backgroundColor: '#EC8B5E' }}>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 35,
+          marginTop: 25,
+        }}>
+        <TouchableOpacity
+          onPress={handleGallery}
+          style={{
+            borderWidth: 1,
+            borderRadius: 35,
+            width: 130,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#141A46',
+          }}>
+          <Text style={{ fontSize: 20, fontWeight: '500', color: 'white' }}>
+            Select Media
+          </Text>
+        </TouchableOpacity>
+      </View>
+      {selectedMedia && selectedMedia.mime.startsWith('image') ? (
+        <Image
+          source={{ uri: selectedMedia.path || selectedMedia.sourceURL }}
+          style={{ width: 360, height: 360, resizeMode: 'cover' }}
+        />
+      ) : null}
+
+      {selectedMedia && selectedMedia.mime.startsWith('video') ? (
+        <Video
+          source={{ uri: selectedMedia.path || selectedMedia.sourceURL }}
+          style={{ width: 360, height: 360 }}
+          controls
+        />
+      ) : null}
+
+      {isLoading && (
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Progress.Bar progress={uploadProgress} width={200} />
+        </View>
+      )}
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 35,
+          marginTop: 25,
+        }}>
+        <TouchableOpacity
+          onPress={handleUpload}
+          style={{
+            borderWidth: 1,
+            borderRadius: 35,
+            width: 130,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#141A46',
+          }}>
+          <Text style={{ fontSize: 20, fontWeight: '500', color: 'white' }}>
+            Upload
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
