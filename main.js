@@ -17,6 +17,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 //Redux
 import { Provider } from 'react-redux';
 import store from './src/store';
+import TestApi from './src/navigation/testApi';
 
 const Stack = createNativeStackNavigator();
 const Main = () => {
@@ -24,12 +25,11 @@ const Main = () => {
   const [user, setUser] = useState(null);
 
 
+
   function onAuthStateChanged(user) {
-    console.log('====================================');
-    console.log({ user: user });
-    console.log('====================================');
     if (user) {
       setUser(user);
+
     } else setUser(null);
     if (initializing) setInitializing(false);
   }
@@ -78,6 +78,7 @@ const Main = () => {
             </>
           ) : (
             <>
+              <Stack.Screen name='Apis' component={TestApi} />
               <Stack.Screen name="Onboard" component={Onboard} />
               <Stack.Screen name="Todo" component={Todo} />
               <Stack.Screen name="AuthStack" component={AuthStack} />

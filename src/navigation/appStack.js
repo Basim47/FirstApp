@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 //Navigation
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //Screens
@@ -11,11 +11,18 @@ import Reels from '../screens/reels';
 //Icons
 import Icons from 'react-native-vector-icons/Feather';
 import { useSelector } from 'react-redux';
+import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../store/actions/userAction';
 
 const Tab = createBottomTabNavigator();
 
 const AppStack = () => {
   const themeMode = useSelector(state => state.theme.mode);
+  const dispatch = useDispatch();
+
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

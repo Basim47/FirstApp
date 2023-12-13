@@ -4,8 +4,11 @@ import { signInWithGoogle } from '../services/firebaseServices';
 //Icons
 import Icons from 'react-native-vector-icons/EvilIcons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../store/actions/userAction';
 
 const Onboard = ({ navigation }) => {
+  const dispatch = useDispatch()
   return (
     <View style={styles.mainwrapper}>
       <View
@@ -18,7 +21,7 @@ const Onboard = ({ navigation }) => {
       <View style={styles.contxtwrapper}>
         <Text style={styles.txt}>Continue as...</Text>
         <TouchableOpacity
-          onPress={signInWithGoogle}
+          onPress={() => signInWithGoogle((data) => dispatch(setUserData(data)))}
           style={styles.touchable}>
           <View
             style={{

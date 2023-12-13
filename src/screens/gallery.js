@@ -85,30 +85,37 @@ const Gallery = () => {
         />
       ) : null}
 
-      {isLoading && (
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Progress.Bar progress={uploadProgress} width={200} />
+      {isLoading ? (
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 40 }}>
+          <Progress.Bar
+            progress={uploadProgress}
+            width={220}
+            height={10}
+            color={themeMode.text} />
+        </View>
+      ) : (
+        <View>
+          <TouchableOpacity
+            onPress={handleGallery}
+            style={[styles.btn, { backgroundColor: themeMode.primary }]}>
+            <Text style={[styles.btntxt, { color: themeMode.text }]}>
+              Select Media
+            </Text>
+          </TouchableOpacity>
+
+
+          <View>
+            <TouchableOpacity
+              onPress={handleUpload}
+              style={[styles.btn, { backgroundColor: themeMode.input }]}>
+              <Text style={[styles.btntxt, { color: themeMode.primary }]}>
+                Upload
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
-      <View>
-        <TouchableOpacity
-          onPress={handleGallery}
-          style={[styles.btn, { backgroundColor: themeMode.primary }]}>
-          <Text style={[styles.btntxt, { color: themeMode.text }]}>
-            Select Media
-          </Text>
-        </TouchableOpacity>
-      </View>
 
-      <View>
-        <TouchableOpacity
-          onPress={handleUpload}
-          style={[styles.btn, { backgroundColor: themeMode.input }]}>
-          <Text style={[styles.btntxt, { color: themeMode.primary }]}>
-            Upload
-          </Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };

@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Pressable,
-  Modal
+  Modal,
+  Alert
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 //Icons
@@ -18,6 +19,11 @@ import { PermissionsAndroid } from 'react-native';
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from './src/store/themeSlice';
+//CurrntUser
+import firestore from '@react-native-firebase/firestore';
+import { setUserData } from './src/store/actions/userAction'
+import auth from '@react-native-firebase/auth'
+
 
 const DATA = [
   {
@@ -96,6 +102,8 @@ const DATA = [
 const App = ({ navigation }) => {
   const [name, setName] = useState('');
   const [isLoading, setisLoading] = useState(false);
+  const themeMode = useSelector(state => state.theme.mode);
+  const userData = useSelector(state => state.user.Fullname)
 
   //Options Modal
   const [modalVisible, setModalVisible] = useState(false);
@@ -117,11 +125,36 @@ const App = ({ navigation }) => {
   const handleToggle = () => {
     dispatch(toggleTheme());
   };
-  const themeMode = useSelector(state => state.theme.mode);
-  const imageUrl = useSelector((state) => state.image.imageUrl)
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userId = auth().currentUser.uid;
+        if (userId) {
+          const userDocument = await firestore().collection('users').doc(userId).get();
+          if (userDocument.exists) {
+            dispatch(setUserData({ ...userDocument.data(), documentId: userDocument.id }));
+          }
+          else {
+
+          }
+
+        } else {
+          Alert.alert('Error', 'No user identifier found');
+        }
+
+      } catch (error) {
+        Alert.alert('Error', 'Error fetching user data:');
+      }
+    };
+    fetchUserData();
+  }, []);
 
   //Android 13 Permissions
   PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+
+
+
 
   useEffect(() => {
     requestUserPermission();
@@ -782,7 +815,7 @@ const App = ({ navigation }) => {
 
                     <Image
                       source={
-                        imageUrl ? { uri: imageUrl } : require('./src/assets/images/user.jpeg')
+                        userData.url ? { uri: userData.url } : require('./src/assets/images/user.jpeg')
                       }
                       style={{
                         width: 80,

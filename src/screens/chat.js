@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 
 const Chat = () => {
   const themeMode = useSelector(state => state.theme.mode);
+  const userData = useSelector(state => state.user.Fullname)
   const handleCamera = () => {
     ImagePicker.openCamera({
       width: 500,
@@ -57,7 +58,7 @@ const Chat = () => {
             marginTop: 6,
             marginLeft: 16,
           }}>
-          Choudhary Basim
+          {userData.Fullname}
         </Text>
         <TouchableOpacity
           style={{ width: 30, height: 20, marginTop: 15, marginLeft: 3 }}>
