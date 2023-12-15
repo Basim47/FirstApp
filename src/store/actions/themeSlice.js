@@ -2,20 +2,20 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const LIGHT_THEME = {
     mode: "light",
-    primary: "#FAF9F6",
+    primary: "#f8f8f8",
     background: "#FFFFFF",
-    text: "#000000",
+    text: "#1d1d4d",
     accent: "#FF0000",
-    input: "#333333",
+    input: "#f8f8f8",
 }
 
 const DARK_THEME = {
     mode: 'dark',
-    primary: "#333333",
-    background: "#000000",
-    text: "#FFFFFF",
+    primary: "#262956",
+    background: "#1d1d4d",
+    text: "#f8f8f8",
     accent: "#FF00",
-    input: "#FAF9F6",
+    input: "#262956",
 }
 
 const themeSlice = createSlice({
