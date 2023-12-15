@@ -9,23 +9,22 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 //Redux
 import { Provider } from 'react-redux';
 import store from './src/store';
+//Screens
+import Onboard from './src/navigation/onboard';
+import AppStack from './src/navigation/appStack';
+import AuthStack from './src/navigation/authStack';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(null);
 
-
-
-  function onAuthStateChanged(user) {
+  const onAuthStateChanged = (user) => {
     if (user) {
       setUser(user);
-
     } else setUser(null);
     if (initializing) setInitializing(false);
   }
-
-
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -36,15 +35,13 @@ const App = () => {
     webClientId: '733727862588-u07pmisio3p0k4sjqem12314b762146b.apps.googleusercontent.com',
   });
 
-
-
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           {user ? (
             <>
-
+              <Stack.Screen name='AppStack' component={AppStack} />
             </>
           ) : (
             <>
