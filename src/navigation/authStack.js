@@ -7,9 +7,6 @@ import Signup from '../screens/Signup';
 import Login from '../screens/Login';
 import Homescr from '../screens/Homescr';
 
-// bsha
-// ashd
-// djkl
 const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
