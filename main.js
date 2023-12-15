@@ -78,8 +78,8 @@ const Main = () => {
             </>
           ) : (
             <>
-              <Stack.Screen name='Apis' component={TestApi} />
               <Stack.Screen name="Onboard" component={Onboard} />
+              <Stack.Screen name='Apis' component={TestApi} />
               <Stack.Screen name="Todo" component={Todo} />
               <Stack.Screen name="AuthStack" component={AuthStack} />
             </>
