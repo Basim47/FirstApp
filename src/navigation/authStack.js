@@ -7,13 +7,18 @@ import Signup from '../screens/Signup';
 import Login from '../screens/Login';
 import Homescr from '../screens/Homescr';
 
+// bsha
+// ashd
+// djkl
 const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Signup" component={Signup} />
+
       <Stack.Screen name="Login" component={Login} />
+
       <Stack.Screen name="Homescr" component={Homescr} />
     </Stack.Navigator>
   );
