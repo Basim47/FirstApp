@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //Firebase
 import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
 //Redux
 import { Provider } from 'react-redux';
 import store from './src/store';
@@ -31,14 +30,12 @@ const App = () => {
     return subscriber;
   }, []);
 
-  GoogleSignin.configure({
-    webClientId: '733727862588-u07pmisio3p0k4sjqem12314b762146b.apps.googleusercontent.com',
-  });
-
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{
+          headerShown: false
+        }}>
           {user ? (
             <>
               <Stack.Screen name='AppStack' component={AppStack} />
