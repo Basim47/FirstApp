@@ -24,7 +24,6 @@ const Onboard = ({ navigation }) => {
             </Text>
           </Btn>
         </TouchableOpacity>
-
         <TouchableOpacity onPress={guestLogin}>
           <Text style={styles.navtxt}>
             Continue as guest

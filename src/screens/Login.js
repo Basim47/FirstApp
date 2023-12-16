@@ -74,7 +74,7 @@ const Login = ({ navigation }) => {
                     />
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Forget')}>
                     <Text style={styles.forgettxt}>
                         Forget Password?
                     </Text>
@@ -92,7 +92,7 @@ const Login = ({ navigation }) => {
                     <Text style={styles.navdes}>
                         Don't have an account?
                     </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
                         <Text style={styles.navtxt}>
                             Register
                         </Text>
@@ -128,12 +128,14 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.bold,
     },
     placestyle: {
-        height: 48,
+        height: 45,
         marginTop: 10,
         borderWidth: 1,
         borderRadius: 7,
-        paddingLeft: 25,
+        paddingLeft: 20,
         borderColor: Colors.grey,
+        backgroundColor: Colors.lightblue,
+        fontFamily: Fonts.regular,
         justifyContent: 'space-evenly',
 
     },
@@ -145,8 +147,8 @@ const styles = StyleSheet.create({
     },
     eyeButton: {
         position: 'absolute',
-        top: 185,
-        right: 12,
+        top: 180,
+        right: 16,
     },
     headtxt: {
         fontSize: 13,

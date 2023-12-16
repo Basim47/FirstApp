@@ -5,13 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
 import Btn from '../assets/components/btn';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Entypo';
 
-const Signin = ({navigation}) => {
+const Signin = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [password1, setPassword1] = useState('');
@@ -56,7 +56,7 @@ const Signin = ({navigation}) => {
           <View style={styles.eyeIconContainer}>
             <TouchableOpacity onPress={togglePasswordVisibility}>
               <Icon
-                name={showPassword ? 'eye' : 'eye-slash'}
+                name={showPassword ? 'eye' : 'eye-with-line'}
                 size={20}
                 color={Colors.icon}
               />
@@ -80,7 +80,7 @@ const Signin = ({navigation}) => {
           <View style={styles.eyeIconContainer}>
             <TouchableOpacity onPress={togglePasswordVisibility1}>
               <Icon
-                name={showPassword1 ? 'eye' : 'eye-slash'}
+                name={showPassword1 ? 'eye' : 'eye-with-line'}
                 size={20}
                 color={Colors.icon}
               />
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   headwrapper: {
     width: '100%',
-    marginTop: 130,
+    marginTop: 120,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -141,22 +141,28 @@ const styles = StyleSheet.create({
   },
   placeholderinput: {
     width: '92%',
+    height: 45,
     alignSelf: 'center',
     borderWidth: 1,
-    borderRadius: 10,
-    borderColor: Colors.white,
+    borderRadius: 7,
+    borderColor: Colors.grey,
     color: Colors.white,
+    fontFamily: Fonts.regular,
+    backgroundColor: Colors.lightblue,
     paddingLeft: 20,
     marginTop: 7,
   },
   passinput: {
     width: '100%',
+    height: 45,
     borderWidth: 1,
-    borderRadius: 10,
-    borderColor: Colors.white,
+    borderRadius: 7,
+    borderColor: Colors.grey,
     color: Colors.white,
+    backgroundColor: Colors.lightblue,
     paddingLeft: 20,
     marginTop: 7,
+    fontFamily: Fonts.regular
   },
   container: {
     width: '92%',
@@ -165,10 +171,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   passcond: {
-    paddingLeft: 15,
+    paddingHorizontal: 15,
     color: Colors.skin,
     marginTop: 3,
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: Fonts.regular
   },
   btntxt: {
@@ -200,7 +206,9 @@ const styles = StyleSheet.create({
     color: Colors.skyblue,
   },
   eyeIconContainer: {
-    marginLeft: 285,
     position: 'absolute',
+    top: 20,
+    right: 20
+
   },
 });

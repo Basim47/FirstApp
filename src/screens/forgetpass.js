@@ -4,12 +4,18 @@ import Fonts from '../assets/fonts/fonts'
 import Colors from '../assets/colors/colors'
 import Btn from '../assets/components/btn'
 import auth from '@react-native-firebase/auth'
+import Icon from 'react-native-vector-icons/Entypo'
 
 const Forgetpass = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [stage, setStage] = useState('email'); // 'email', 'otp', 'new_password'
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const togglePassword = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+    };
 
     const handleEmailInput = (email) => setEmail(email);
     const handleOtpInput = (otp) => setOtp(otp);
@@ -93,14 +99,24 @@ const Forgetpass = ({ navigation }) => {
                                 <TextInput
                                     style={styles.inputtxt}
                                     placeholder="Enter your password"
-                                    secureTextEntry
+                                    secureTextEntry={!isPasswordVisible}
                                     value={newPassword}
                                     onChangeText={handleNewPasswordInput}
                                 />
+                                <View style={styles.eye}>
+                                    <TouchableOpacity onPress={togglePassword}>
+                                        <Icon
+                                            name={isPasswordVisible ? 'eye' : 'eye-with-line'}
+                                            size={18}
+                                            color={Colors.grey}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
                                 <Text style={styles.passcond}>
                                     The password must have at least one lowercase, one uppercase, one
                                     special and one numeric character.
                                 </Text>
+
                             </View>
 
                         </>
@@ -230,5 +246,10 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: "100%",
         marginTop: 420
+    },
+    eye: {
+        position: "absolute",
+        top: 48,
+        right: 30
     }
 })
