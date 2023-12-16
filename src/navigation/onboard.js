@@ -3,44 +3,30 @@ import React from 'react';
 //Redux
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../store/actions/userAction';
+//Components
+import Btn from '../assets/components/btn';
+//Fonts
+import Fonts from '../assets/fonts/fonts';
+//Colors
+import Colors from '../assets/colors/colors';
 
 const Onboard = ({ navigation }) => {
   const dispatch = useDispatch()
   return (
     <View style={styles.mainwrapper}>
-      <View
-        style={{
-          width: '100%',
-          height: 150,
-        }}>
-        <Text style={styles.headtxt}>Online Food</Text>
+      <View style={styles.headwrapper}>
+        <Text style={styles.headtxt}>Daily Dose of Wisdom</Text>
       </View>
-      <View style={styles.contxtwrapper}>
-
-        <TouchableOpacity
-          style={styles.mailtouchable}>
-
+      <View>
+        <Btn>
           <Text
-            style={{
-              fontSize: 16,
-              fontFamily: 'Nunito-Bold',
-              color: '#FAF9F6',
-              marginLeft: 40,
-            }}>
-            EMAIL
+            style={styles.btntxt}>
+            Log In
           </Text>
-        </TouchableOpacity>
+        </Btn>
         <TouchableOpacity>
           <Text style={styles.navtxt}>
-            Already have an account?{' '}
-            <Text
-              style={{
-                color: '#D7C49EFF',
-                fontSize: 16,
-                fontFamily: 'Grandista',
-              }}>
-              Login !
-            </Text>
+            Continue as guest
           </Text>
         </TouchableOpacity>
       </View>
@@ -52,60 +38,29 @@ export default Onboard;
 const styles = StyleSheet.create({
   mainwrapper: {
     flex: 1,
+    backgroundColor: Colors.blue,
+  },
+  headwrapper: {
+    width: "100%",
+    height: 622,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#343148FF',
+    alignItems: "center"
   },
   headtxt: {
-    fontSize: 46,
-    color: '#D7C49EFF',
-    fontFamily: 'Grandista',
-    textAlign: 'center',
+    fontSize: 13,
+    color: Colors.skin,
+    fontFamily: Fonts.regular,
   },
-  contxtwrapper: {
-    width: '90%',
-    height: 320,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  txt: {
-    color: '#D7C49EFF',
+  btntxt: {
     fontSize: 14,
-    marginVertical: 5,
-    fontFamily: 'Nunito-Regular',
-  },
-  touchable: {
-    width: 260,
-    height: 45,
-    backgroundColor: '#D7C49EFF',
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderRadius: 50,
-    elevation: 7,
-    marginVertical: 10,
-  },
-  mailtouchable: {
-    width: 260,
-    height: 45,
-    backgroundColor: '#8c180f',
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderRadius: 50,
-    elevation: 7,
-    marginVertical: 10,
-  },
-  seperater: {
-    width: '95%',
-    height: 1,
-    backgroundColor: '#858282',
-    opacity: 0.2,
-    marginVertical: 15,
+    fontFamily: Fonts.medium,
+    color: Colors.white,
   },
   navtxt: {
-    color: '#fff',
-    fontFamily: 'Nunito-Italic',
+    color: Colors.skyblue,
+    fontFamily: Fonts.bold,
     textAlign: 'center',
     fontSize: 13,
-    marginTop: 15,
+    marginTop: 8,
   },
 });
