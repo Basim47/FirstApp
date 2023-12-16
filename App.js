@@ -1,12 +1,12 @@
-import {View, Text} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import { View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
 //Nav
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //Firebase
 import auth from '@react-native-firebase/auth';
 //Redux
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './src/store';
 //Screens
 import Onboard from './src/navigation/onboard';
@@ -43,9 +43,8 @@ const App = () => {
             </>
           ) : (
             <>
-              <Stack.Screen name="AuthStack" component={AuthStack} />
               <Stack.Screen name="Onboard" component={Onboard} />
-              {/* <Stack.Screen name="AuthStack" component={AuthStack} /> */}
+              <Stack.Screen name="AuthStack" component={AuthStack} />
             </>
           )}
         </Stack.Navigator>

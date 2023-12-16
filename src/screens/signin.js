@@ -98,5 +98,6 @@ const styles = StyleSheet.create({
     color: Colors.skin,
     marginTop: 3,
     fontSize: 13,
+    fontFamily: Fonts.regular
   },
 });

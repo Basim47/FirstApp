@@ -2,8 +2,6 @@ import auth from '@react-native-firebase/auth';
 import { Alert } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import firestore from "@react-native-firebase/firestore"
-import randomEmail from 'random-email'
-
 const registerUserWithEmail = (email, pass) => {
     auth()
         .createUserWithEmailAndPassword(email, pass)
