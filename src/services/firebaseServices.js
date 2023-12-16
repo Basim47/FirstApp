@@ -2,6 +2,7 @@ import auth from '@react-native-firebase/auth';
 import { Alert } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import firestore from "@react-native-firebase/firestore"
+import randomEmail from 'random-email'
 
 const registerUserWithEmail = (email, pass) => {
     auth()
@@ -25,14 +26,30 @@ const loginWithEmail = (email, pass) => {
         })
 }
 
+const guestLogin = () => {
+
+    auth()
+        .signInAnonymously()
+        .then((data) => {
+            console.log(data);
+        })
+        .catch(error => {
+            if (error.code === 'auth/operation-not-allowed') {
+                console.log('Enable anonymous in your firebase console.');
+            }
+
+            console.error(error);
+        });
+}
+
 const resetPassword = (email) => {
     auth()
         .sendPasswordResetEmail(email)
         .then((data) => {
-            Alert.alert('Success', JSON.stringify(data))
+            console.log(data);
         })
         .catch((error) => {
-            Alert.alert('Falied', JSON.stringify(error.message))
+            console.log(error);
         })
 }
 
@@ -98,5 +115,6 @@ export {
     logout,
     loginWithEmail,
     resetPassword,
-    signInWithGoogle
+    signInWithGoogle,
+    guestLogin
 }
