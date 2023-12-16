@@ -14,6 +14,7 @@ import AppStack from './src/navigation/appStack';
 import AuthStack from './src/navigation/authStack';
 import Btn from './src/assets/components/btn';
 
+
 const Stack = createNativeStackNavigator();
 const App = () => {
   const [initializing, setInitializing] = useState(true);
@@ -43,6 +44,7 @@ const App = () => {
             </>
           ) : (
             <>
+
               <Stack.Screen name="Onboard" component={Onboard} />
               <Stack.Screen name="AuthStack" component={AuthStack} />
             </>

@@ -4,5 +4,6 @@ const Colors = {
     skyblue: "#5c5cd0",
     blue: "#1d1d4d",
     lightblue: "#262956",
+    grey: 'grey',
 }
 export default Colors
