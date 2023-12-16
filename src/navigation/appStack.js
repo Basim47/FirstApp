@@ -2,13 +2,13 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 //Nav
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import App from '../../App';
+import Main from '../screens/main';
 
 const Stack = createNativeStackNavigator();
 const AppStack = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name='App' component={App} />
+            <Stack.Screen name='Main' component={Main} />
         </Stack.Navigator>
     )
 }

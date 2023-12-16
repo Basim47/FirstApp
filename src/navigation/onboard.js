@@ -1,9 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { signInWithGoogle } from '../services/firebaseServices';
-//Icons
-import Icons from 'react-native-vector-icons/EvilIcons';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+//Redux
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../store/actions/userAction';
 
@@ -19,37 +16,10 @@ const Onboard = ({ navigation }) => {
         <Text style={styles.headtxt}>Online Food</Text>
       </View>
       <View style={styles.contxtwrapper}>
-        <Text style={styles.txt}>Continue as...</Text>
+
         <TouchableOpacity
-          onPress={() => signInWithGoogle((data) => dispatch(setUserData(data)))}
-          style={styles.touchable}>
-          <View
-            style={{
-              marginLeft: 40,
-            }}>
-            <Icons name={'sc-google-plus'} size={28} color={'#343148FF'} />
-          </View>
-          <Text
-            style={{
-              fontFamily: 'Nunito-Bold',
-              fontSize: 16,
-              color: '#343148FF',
-              marginLeft: 35,
-            }}>
-            GOOGLE
-          </Text>
-        </TouchableOpacity>
-        <View style={styles.seperater}></View>
-        <Text style={styles.txt}>Create new account!</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('AuthStack', { screen: 'Signup' })}
           style={styles.mailtouchable}>
-          <View
-            style={{
-              marginLeft: 40,
-            }}>
-            <Icon name={'gmail'} size={26} color={'#FAF9F6'} />
-          </View>
+
           <Text
             style={{
               fontSize: 16,
@@ -60,8 +30,7 @@ const Onboard = ({ navigation }) => {
             EMAIL
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('AuthStack', { screen: 'Login' })}>
+        <TouchableOpacity>
           <Text style={styles.navtxt}>
             Already have an account?{' '}
             <Text
