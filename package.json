@@ -26,6 +26,7 @@
     "axios": "^1.6.2",
     "install": "^0.13.0",
     "npm": "^10.2.0",
+    "random-email": "^1.0.3",
     "react": "18.2.0",
     "react-native": "0.72.5",
     "react-native-geolocation-service": "^5.3.1",
