@@ -12,7 +12,6 @@ import store from './src/store';
 import Onboard from './src/navigation/onboard';
 import AppStack from './src/navigation/appStack';
 import AuthStack from './src/navigation/authStack';
-import Btn from './src/assets/components/btn';
 
 const Stack = createNativeStackNavigator();
 const App = () => {

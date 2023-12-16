@@ -1,30 +1,31 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
-//Redux
-import { useDispatch } from 'react-redux';
-import { setUserData } from '../store/actions/userAction';
 //Components
 import Btn from '../assets/components/btn';
 //Fonts
 import Fonts from '../assets/fonts/fonts';
 //Colors
 import Colors from '../assets/colors/colors';
+//Firebase
+import { guestLogin } from '../services/firebaseServices';
 
 const Onboard = ({ navigation }) => {
-  const dispatch = useDispatch()
   return (
     <View style={styles.mainwrapper}>
       <View style={styles.headwrapper}>
         <Text style={styles.headtxt}>Daily Dose of Wisdom</Text>
       </View>
       <View>
-        <Btn>
-          <Text
-            style={styles.btntxt}>
-            Log In
-          </Text>
-        </Btn>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('AuthStack', { screen: 'Login' })}>
+          <Btn>
+            <Text
+              style={styles.btntxt}>
+              Log In
+            </Text>
+          </Btn>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={guestLogin}>
           <Text style={styles.navtxt}>
             Continue as guest
           </Text>
