@@ -24,7 +24,6 @@ const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const handleLogin = () => { loginWithEmail(email, pass); };
-    const dispatch = useDispatch()
 
     // Eyebutton visibility
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -83,18 +82,20 @@ const Login = ({ navigation }) => {
             </View>
 
             <View style={styles.btnview}>
-                <Btn onPress={handleLogin}>
-                    <Text style={styles.btntxt}>
-                        Sign In
-                    </Text>
-                </Btn>
+                <TouchableOpacity onPress={handleLogin}>
+                    <Btn>
+                        <Text style={styles.btntxt}>
+                            Sign In
+                        </Text>
+                    </Btn>
+                </TouchableOpacity>
                 <View style={styles.navView}>
                     <Text style={styles.navdes}>
                         Don't have an account?
                     </Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
                         <Text style={styles.navtxt}>
-                            Register
+                            {' '} Register
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     },
     headwrapper: {
         width: "100%",
-        height: 150,
+        height: 135,
         justifyContent: 'flex-end',
         alignItems: "center"
     },
