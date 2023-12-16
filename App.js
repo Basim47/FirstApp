@@ -13,17 +13,18 @@ import Onboard from './src/navigation/onboard';
 import AppStack from './src/navigation/appStack';
 import AuthStack from './src/navigation/authStack';
 
+
 const Stack = createNativeStackNavigator();
 const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(null);
 
-  const onAuthStateChanged = (user) => {
+  const onAuthStateChanged = user => {
     if (user) {
       setUser(user);
     } else setUser(null);
     if (initializing) setInitializing(false);
-  }
+  };
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -33,16 +34,17 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{
-          headerShown: false
-        }}>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
           {user ? (
             <>
-              <Stack.Screen name='AppStack' component={AppStack} />
+              <Stack.Screen name="AppStack" component={AppStack} />
             </>
           ) : (
             <>
-              <Stack.Screen name="Onboard" component={Onboard} />
+              <Stack.Screen name='Onboard' component={Onboard} />
               <Stack.Screen name="AuthStack" component={AuthStack} />
             </>
           )}
