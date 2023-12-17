@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  StatusBar
 } from 'react-native';
 import React, { useState } from 'react';
 import Colors from '../assets/colors/colors';
@@ -36,6 +37,8 @@ const Signin = ({ navigation }) => {
 
   return (
     <View style={styles.mainwrapper}>
+      <StatusBar translucent
+        backgroundColor={Colors.blue} />
       <View style={styles.headwrapper}>
         <Text style={styles.headtxt}>Daily Dose of Wisdom</Text>
       </View>
@@ -129,7 +132,7 @@ const styles = StyleSheet.create({
   },
   headwrapper: {
     width: '100%',
-    marginTop: 120,
+    marginTop: 140,
     justifyContent: 'center',
     alignItems: 'center',
   },

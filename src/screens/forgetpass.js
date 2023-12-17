@@ -5,15 +5,16 @@ import {
   TouchableOpacity,
   View,
   Alert,
+  StatusBar
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Fonts from '../assets/fonts/fonts';
 import Colors from '../assets/colors/colors';
 import Btn from '../assets/components/btn';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Entypo';
 
-const Forgetpass = ({navigation}) => {
+const Forgetpass = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -57,6 +58,8 @@ const Forgetpass = ({navigation}) => {
 
   return (
     <View style={styles.mainwrapper}>
+      <StatusBar translucent
+        backgroundColor={Colors.blue} />
       <View style={styles.headwrap}>
         <Text style={styles.headtxt}>Daily Dose of Wisdom</Text>
       </View>
@@ -91,7 +94,7 @@ const Forgetpass = ({navigation}) => {
 
           {stage === 'otp' && (
             <>
-              <View style={{marginTop: 5}}>
+              <View style={{ marginTop: 5 }}>
                 <Text style={styles.placeholder}>Otp Code</Text>
                 <TextInput
                   style={styles.inputtxt}
@@ -102,7 +105,7 @@ const Forgetpass = ({navigation}) => {
                   onChangeText={handleOtpInput}
                 />
               </View>
-              <View style={{marginTop: 5}}>
+              <View style={{ marginTop: 5 }}>
                 <Text style={styles.placeholder}>New Password</Text>
                 <TextInput
                   style={styles.inputtxt}
@@ -169,6 +172,7 @@ const styles = StyleSheet.create({
   headwrap: {
     width: '100%',
     height: 185,
+    marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },

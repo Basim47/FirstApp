@@ -4,11 +4,12 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  StatusBar
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 //Redux
-import {useDispatch} from 'react-redux';
-import {setUserData} from '../store/actions/userAction';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../store/actions/userAction';
 //Components
 import Btn from '../assets/components/btn';
 //Fonts
@@ -18,8 +19,8 @@ import Colors from '../assets/colors/colors';
 // icons
 import Icons from 'react-native-vector-icons/Entypo';
 // Fire Base
-import {loginWithEmail} from '../services/firebaseServices';
-const Login = ({navigation}) => {
+import { loginWithEmail } from '../services/firebaseServices';
+const Login = ({ navigation }) => {
   // Login Handle
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -34,6 +35,8 @@ const Login = ({navigation}) => {
   };
   return (
     <View style={styles.mainwrapper}>
+      <StatusBar translucent
+        backgroundColor={Colors.blue} />
       <View style={styles.headwrapper}>
         <Text style={styles.headtxt}>Daily Dose of Wisdom</Text>
       </View>
@@ -99,6 +102,7 @@ const styles = StyleSheet.create({
   headwrapper: {
     width: '100%',
     height: 135,
+    marginTop: 20,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
