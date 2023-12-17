@@ -43,7 +43,7 @@ const Login = ({navigation}) => {
         <TextInput
           style={styles.placestyle}
           placeholder="Enter your email"
-          placeholderTextColor={'white'}
+          placeholderTextColor={Colors.white}
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
@@ -53,7 +53,7 @@ const Login = ({navigation}) => {
         <TextInput
           style={styles.placestyle}
           placeholder="Enter your password"
-          placeholderTextColor={'white'}
+          placeholderTextColor={Colors.white}
           value={pass}
           onChangeText={setPass}
           secureTextEntry={!isPasswordVisible}
@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lightblue,
     fontFamily: Fonts.regular,
     justifyContent: 'space-evenly',
+    color: Colors.white,
   },
   placetxt: {
     marginTop: 20,

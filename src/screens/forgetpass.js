@@ -107,6 +107,7 @@ const Forgetpass = ({navigation}) => {
                 <TextInput
                   style={styles.inputtxt}
                   placeholder="Enter your password"
+                  placeholderTextColor={Colors.white}
                   secureTextEntry={!isPasswordVisible}
                   value={newPassword}
                   onChangeText={handleNewPasswordInput}
@@ -225,6 +226,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.regular,
     borderRadius: 8,
     backgroundColor: Colors.lightblue,
+    color: Colors.white,
   },
 
   passcond: {
