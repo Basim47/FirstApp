@@ -4,18 +4,29 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  StatusBar
 } from 'react-native';
 import React, { useState } from 'react';
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
 import Btn from '../assets/components/btn';
 import Icon from 'react-native-vector-icons/Entypo';
+import { registerUserWithEmail } from '../services/firebaseServices';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../store/actions/userAction';
 
 const Signin = ({ navigation }) => {
-  const [password, setPassword] = useState('');
+  const [pass, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [password1, setPassword1] = useState('');
   const [showPassword1, setShowPassword1] = useState(false);
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const dispatch = useDispatch();
+
+  const handleRegister = () => {
+    registerUserWithEmail(name, email, pass)
+  }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -26,6 +37,8 @@ const Signin = ({ navigation }) => {
 
   return (
     <View style={styles.mainwrapper}>
+      <StatusBar translucent
+        backgroundColor={Colors.blue} />
       <View style={styles.headwrapper}>
         <Text style={styles.headtxt}>Daily Dose of Wisdom</Text>
       </View>
@@ -36,12 +49,16 @@ const Signin = ({ navigation }) => {
           style={styles.placeholderinput}
           placeholder="Enter your full name"
           placeholderTextColor={Colors.white}
+          value={name}
+          onChangeText={txt => setName(txt)}
         />
         <Text style={styles.placeholdertxt}>Email</Text>
         <TextInput
           style={styles.placeholderinput}
           placeholder="Enter your email"
           placeholderTextColor={Colors.white}
+          value={email}
+          onChangeText={txt => setEmail(txt)}
         />
         <Text style={styles.placeholdertxt}>Password</Text>
         <View style={styles.container}>
@@ -50,8 +67,8 @@ const Signin = ({ navigation }) => {
             placeholder="Enter your password"
             placeholderTextColor={Colors.white}
             secureTextEntry={!showPassword}
-            value={password}
-            onChangeText={text => setPassword(text)}
+            value={pass}
+            onChangeText={txt => setPassword(txt)}
           />
           <View style={styles.eyeIconContainer}>
             <TouchableOpacity onPress={togglePasswordVisibility}>
@@ -75,7 +92,7 @@ const Signin = ({ navigation }) => {
             placeholderTextColor={Colors.white}
             secureTextEntry={!showPassword1}
             value={password1}
-            onChangeText={text => setPassword1(text)}
+            onChangeText={txt => setPassword1(txt)}
           />
           <View style={styles.eyeIconContainer}>
             <TouchableOpacity onPress={togglePasswordVisibility1}>
@@ -87,7 +104,8 @@ const Signin = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity style={styles.reg}>
+        <TouchableOpacity style={styles.reg}
+          onPress={() => handleRegister((data) => dispatch(setUserData(data)))}>
           <Btn>
             <Text style={styles.btntxt}>Register</Text>
           </Btn>
@@ -114,7 +132,7 @@ const styles = StyleSheet.create({
   },
   headwrapper: {
     width: '100%',
-    marginTop: 120,
+    marginTop: 140,
     justifyContent: 'center',
     alignItems: 'center',
   },

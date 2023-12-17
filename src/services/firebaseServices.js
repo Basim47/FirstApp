@@ -3,14 +3,31 @@ import { Alert } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import firestore from "@react-native-firebase/firestore"
 
-const registerUserWithEmail = (email, pass) => {
+const registerUserWithEmail = async (name, email, pass, callback = () => { }) => {
+  const Fullname = name;
+  const Email = email;
   auth()
     .createUserWithEmailAndPassword(email, pass)
-    .then(user => {
-      Alert.alert('Success', JSON.stringify(user));
+    .then(async user => {
+      if (user.user.uid) {
+        const exists = await firestore()
+          .collection('users')
+          .doc(user.user.uid)
+          .get();
+        if (exists.exists) {
+        } else {
+          storedata(Fullname, Email, user.user.uid);
+          callback({
+            Fullname,
+            Email,
+            userId: user.user.uid,
+          });
+        }
+      }
+      console.log(user);
     })
     .catch(error => {
-      Alert.alert('Falied', JSON.stringify(error.message));
+      console.log(error);;
     });
 };
 
@@ -18,10 +35,10 @@ const loginWithEmail = (email, pass) => {
   auth()
     .signInWithEmailAndPassword(email, pass)
     .then(user => {
-      Alert.alert('Success', JSON.stringify(user));
+      console.log(user);
     })
     .catch(error => {
-      Alert.alert('Falied', JSON.stringify(error.message));
+      console.log(error);
     });
 };
 

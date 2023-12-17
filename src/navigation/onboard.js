@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import React from 'react';
 //Components
 import Btn from '../assets/components/btn';
@@ -12,6 +12,8 @@ import { guestLogin } from '../services/firebaseServices';
 const Onboard = ({ navigation }) => {
   return (
     <View style={styles.mainwrapper}>
+      <StatusBar translucent
+        backgroundColor={Colors.blue} />
       <View style={styles.headwrapper}>
         <Text style={styles.headtxt}>Daily Dose of Wisdom</Text>
       </View>
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
   headwrapper: {
     width: "100%",
     height: 622,
+    marginTop: 20,
     justifyContent: 'center',
     alignItems: "center"
   },

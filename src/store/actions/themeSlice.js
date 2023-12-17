@@ -5,8 +5,9 @@ const LIGHT_THEME = {
     primary: "#f8f8f8",
     background: "#FFFFFF",
     text: "#1d1d4d",
-    accent: "#FF0000",
+    accent: "#b8b8b8",
     input: "#f8f8f8",
+    icon: "#656667",
 }
 
 const DARK_THEME = {
@@ -14,8 +15,9 @@ const DARK_THEME = {
     primary: "#262956",
     background: "#1d1d4d",
     text: "#f8f8f8",
-    accent: "#FF00",
+    accent: "#f8f8f8",
     input: "#262956",
+    icon: "#f8f8f8",
 }
 
 const themeSlice = createSlice({
