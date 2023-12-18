@@ -35,11 +35,6 @@ const Main = ({ navigation }) => {
       <StatusBar translucent
         backgroundColor={Colors.blue} />
       <View style={styles.headwrap}></View>
-      <TouchableOpacity onPress={logout}>
-        <View style={{ width: 70, height: 70, backgroundColor: '#000' }}>
-          <Text style={{ color: 'white' }}>logout</Text>
-        </View>
-      </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
         <View style={{ width: 70, height: 70, backgroundColor: '#000' }}>
           <Text style={{ color: 'white' }}>Settings</Text>

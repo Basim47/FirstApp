@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Switch, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Switch, StatusBar, Image } from 'react-native';
 import React, { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Colors from '../assets/colors/colors';
@@ -8,6 +8,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Octicons from 'react-native-vector-icons/Octicons';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../store/actions/themeSlice';
+import { logout } from '../services/firebaseServices';
+import Icon from 'react-native-vector-icons/Feather'
 
 const Settings = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -32,9 +34,19 @@ const Settings = ({ navigation }) => {
       <Text style={[styles.acc, { color: themeMode.text }]}>Account</Text>
       <View style={styles.prfdet}>
         <View style={[styles.Pfp, { borderColor: themeMode.accent }]}>
-          <TouchableOpacity style={styles.pfpbtn}>
-            <FontAwesome name={'user'} size={50} color={themeMode.accent} />
-          </TouchableOpacity>
+          <Image
+            source={
+              userData.url
+                ? { uri: userData.url }
+                : require('../assets/images/user.png')
+            }
+            style={{
+              width: 78,
+              height: 78,
+              borderRadius: 60,
+            }}
+            resizeMode="cover"
+          />
         </View>
         <View style={styles.prfvtxt}>
           <Text style={[styles.prftxt, { color: themeMode.text }]}>{userData ? (
@@ -135,6 +147,14 @@ const Settings = ({ navigation }) => {
       <Text style={styles.nottxt}>
         By activating notifications you will recieve a daily suggestion.
       </Text>
+      <View style={styles.logbtn}>
+        <TouchableOpacity onPress={logout}>
+          <View style={{ flexDirection: "row", justifyContent: 'space-evenly' }}>
+            <Icon name={'log-out'} size={16} color={Colors.white} />
+            <Text style={styles.logtxt}>Log Out</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -266,4 +286,20 @@ const styles = StyleSheet.create({
   switch2: {
     marginLeft: 155,
   },
+  logbtn: {
+    width: 110,
+    height: 35,
+    backgroundColor: Colors.skyblue,
+    justifyContent: 'center',
+    borderRadius: 8,
+    margin: 20,
+    padding: 8,
+    elevation: 5
+  },
+  logtxt: {
+    fontFamily: Fonts.medium,
+    fontSize: 12,
+    color: Colors.white,
+
+  }
 });
