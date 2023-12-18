@@ -21,6 +21,7 @@ import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import * as Progress from 'react-native-progress';
+import { UpdateData } from '../services/firebaseServices';
 
 const Profile = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
@@ -90,6 +91,10 @@ const Profile = ({ navigation }) => {
       console.log(error);
     }
   };
+
+  const handleUpdate = () => {
+    UpdateData(Fullname, Currentpass, Newpass);
+  }
 
   return (
     <View style={[styles.mainwrap, { backgroundColor: themeMode.background }]}>
@@ -190,7 +195,7 @@ const Profile = ({ navigation }) => {
           special and one numeric character.
         </Text>
         <View style={styles.btn}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleUpdate}>
             <Btn>
               <Text>Update Profile</Text>
             </Btn>
