@@ -4,7 +4,9 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
+  KeyboardAvoidingView,
+  ScrollView
 } from 'react-native';
 import React, { useState } from 'react';
 import Colors from '../assets/colors/colors';
@@ -42,7 +44,7 @@ const Signin = ({ navigation }) => {
       <View style={styles.headwrapper}>
         <Text style={styles.headtxt}>Daily Dose of Wisdom</Text>
       </View>
-      <View>
+      <ScrollView>
         <Text style={styles.regtxt}>Register</Text>
         <Text style={styles.placeholdertxt}>Name</Text>
         <TextInput
@@ -110,7 +112,7 @@ const Signin = ({ navigation }) => {
             <Text style={styles.btntxt}>Register</Text>
           </Btn>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
       <View style={styles.bottom}>
         <Text style={styles.bottxt}>Already have an account?</Text>
         <TouchableOpacity
