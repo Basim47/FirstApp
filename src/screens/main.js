@@ -58,18 +58,15 @@ const Main = ({ navigation }) => {
       <View style={styles.headwrapper}>
         <TouchableOpacity style={styles.mainbody}
           onPress={() => navigation.navigate('Settings')}>
-          {themeMode.mode === 'light' ?
-            <>
-              <Ionicons name='settings-sharp' size={30} color={'black'} />
-            </>
-            :
-            <>
-              <Ionicons name='settings-sharp' size={30} color={'white'} />
-            </>
-          }
+          <Ionicons name='settings-sharp' size={30} color={themeMode.text} />
         </TouchableOpacity>
         <Text style={[styles.headtxt, { color: themeMode.text }]}>Daily Dose of Wisdom</Text>
       </View>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Preference')}>
+        <Text style={{ color: themeMode.text, marginTop: 110, alignSelf: 'center' }}>Preference</Text>
+      </TouchableOpacity>
+
     </ScrollView>
   );
 };

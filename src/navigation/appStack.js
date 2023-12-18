@@ -1,8 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 //Nav
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from '../screens/main';
+import Preference from '../screens/preferences';
+import Personal from '../screens/personal';
+import Story from '../screens/story';
 import Settings from '../screens/settings';
 import Profile from '../screens/profile';
 import About from '../screens/about';
@@ -10,11 +13,15 @@ import Favorite from '../screens/favorite';
 import Suggestion from '../screens/suggestion';
 import Search from '../screens/search';
 
+
 const Stack = createNativeStackNavigator();
 const AppStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Main" component={Main} />
+      <Stack.Screen name="Preference" component={Preference} />
+      <Stack.Screen name="Personal" component={Personal} />
+      <Stack.Screen name="Story" component={Story} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="About" component={About} />
