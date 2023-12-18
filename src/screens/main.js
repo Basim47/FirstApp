@@ -5,17 +5,23 @@ import {
   View,
   StatusBar,
   Alert,
+  ScrollView,
 } from 'react-native';
 import React, { useEffect } from 'react';
 import Colors from '../assets/colors/colors';
+import Fonts from '../assets/fonts/fonts';
+// Redux
 import { setUserData } from '../store/actions/userAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+// Icons
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Main = ({ navigation }) => {
   const dispatch = useDispatch();
 
+  const themeMode = useSelector(state => state.theme.mode);
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -46,24 +52,46 @@ const Main = ({ navigation }) => {
   }, []);
 
   return (
-    <View>
-      <StatusBar translucent backgroundColor={Colors.blue} />
-      <View style={styles.headwrap}></View>
-      <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-        <View style={{ width: 70, height: 70, backgroundColor: '#000' }}>
-          <Text style={{ color: 'white' }}>Settings</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+    <ScrollView style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
+      <StatusBar translucent
+        backgroundColor={themeMode.background} />
+      <View style={styles.headwrapper}>
+        <TouchableOpacity style={styles.mainbody}
+          onPress={() => navigation.navigate('Settings')}>
+          {themeMode.mode === 'light' ?
+            <>
+              <Ionicons name='settings-sharp' size={30} color={'black'} />
+            </>
+            :
+            <>
+              <Ionicons name='settings-sharp' size={30} color={'white'} />
+            </>
+          }
+        </TouchableOpacity>
+        <Text style={[styles.headtxt, { color: themeMode.text }]}>Daily Dose of Wisdom</Text>
+      </View>
+    </ScrollView>
   );
 };
 
 export default Main;
 
 const styles = StyleSheet.create({
-  headwrap: {
+  mainwrapper: {
+    flex: 1,
+  },
+  headwrapper: {
+    flexDirection: 'row',
+    marginTop: 60,
     width: '100%',
-    height: 40,
-    marginTop: 20,
+    alignItems: 'center',
+  },
+  mainbody: {
+    marginLeft: 20,
+  },
+  headtxt: {
+    fontFamily: Fonts.bold,
+    fontSize: 16,
+    marginHorizontal: 55,
   },
 });

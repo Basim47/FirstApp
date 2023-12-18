@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   Switch,
   StatusBar,
-  Image
+  Image,
+  Modal
 } from 'react-native';
 import React, { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -16,7 +17,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Octicons from 'react-native-vector-icons/Octicons';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../store/actions/themeSlice';
-import { logout } from '../services/firebaseServices';
+import { logout, delAcc } from '../services/firebaseServices';
 import Icon from 'react-native-vector-icons/Feather';
 
 const Settings = ({ navigation }) => {
@@ -28,6 +29,11 @@ const Settings = ({ navigation }) => {
   const dispatch = useDispatch();
   const handletheme = () =>
     dispatch(toggleTheme(setIsEnabled(previousState => !previousState)));
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
 
   return (
     <View style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
@@ -102,12 +108,33 @@ const Settings = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View>
-        <TouchableOpacity style={styles.abtus}>
+        <TouchableOpacity style={styles.abtus} onPress={toggleModal}>
           <FontAwesome name={'trash'} size={17} color={Colors.icon} />
           <Text style={[styles.bodytxt2, { color: themeMode.icon }]}>
             Delete Account
           </Text>
         </TouchableOpacity>
+        <Modal
+          transparent={true}
+          visible={modalVisible}
+          hardwareAccelerated={true}
+          onRequestClose={toggleModal}>
+          <View style={[styles.modl, { backgroundColor: themeMode.background }]}>
+            <Text style={[styles.modltxt, { color: themeMode.text }]}>Are you sure you want to delete this account?</Text>
+            <View style={styles.modlbtnview}>
+              <TouchableOpacity onPress={delAcc}>
+                <View style={styles.delbtn}>
+                  <Text style={styles.btntxt}>Delete</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={toggleModal}>
+                <View style={styles.cnclbtn}>
+                  <Text style={styles.btntxt}>Cancel</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
       <View>
         <TouchableOpacity
@@ -332,4 +359,47 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: Colors.white,
   },
+  modl: {
+    width: "70%",
+    height: 190,
+    alignSelf: 'center',
+    marginTop: 270,
+    borderRadius: 20,
+    elevation: 7,
+    padding: 20
+  },
+  modltxt: {
+    fontFamily: Fonts.regular,
+    fontSize: 16,
+    textAlign: 'center'
+  },
+  modlbtnview: {
+    width: "60%",
+    height: 90,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    marginTop: 18
+  },
+  delbtn: {
+    width: 130,
+    height: 35,
+    backgroundColor: Colors.lightblue,
+    borderRadius: 7,
+    justifyContent: 'center'
+  },
+  btntxt: {
+    fontFamily: Fonts.regular,
+    fontSize: 14,
+    color: Colors.white,
+    alignSelf: 'center'
+  },
+  cnclbtn: {
+    width: 130,
+    height: 35,
+    backgroundColor: Colors.skin,
+    borderRadius: 7,
+    justifyContent: 'center',
+    marginTop: 7
+  }
 });
