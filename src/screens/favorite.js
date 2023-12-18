@@ -13,7 +13,7 @@ const Favorite = ({ navigation }) => {
   return (
     <ScrollView style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
       <StatusBar translucent
-        backgroundColor={Colors.blue} />
+        backgroundColor={themeMode.background} />
       <View style={styles.headwrapper}>
         <TouchableOpacity
           style={styles.mainbody}
@@ -31,7 +31,6 @@ export default Favorite;
 const styles = StyleSheet.create({
   mainwrapper: {
     flex: 1,
-    backgroundColor: Colors.blue,
   },
   headwrapper: {
     flexDirection: 'row',

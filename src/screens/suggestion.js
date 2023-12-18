@@ -16,7 +16,7 @@ const Suggestion = ({ navigation }) => {
   return (
     <ScrollView style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
       <StatusBar translucent
-        backgroundColor={Colors.blue} />
+        backgroundColor={themeMode.background} />
       <View style={styles.headwrapper}>
         <TouchableOpacity
           style={styles.mainbody}
