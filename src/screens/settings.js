@@ -5,20 +5,21 @@ import {
   TouchableOpacity,
   Switch,
   StatusBar,
+  Image
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
-import {useSelector, useDispatch} from 'react-redux';
-import {toggleTheme} from '../store/actions/themeSlice';
-import {logout} from '../services/firebaseServices';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleTheme } from '../store/actions/themeSlice';
+import { logout } from '../services/firebaseServices';
 import Icon from 'react-native-vector-icons/Feather';
 
-const Settings = ({navigation}) => {
+const Settings = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [isEnabled1, setIsEnabled1] = useState(false);
   const toggleSwitch = () => setIsEnabled1(previousState1 => !previousState1);
@@ -29,7 +30,7 @@ const Settings = ({navigation}) => {
     dispatch(toggleTheme(setIsEnabled(previousState => !previousState)));
 
   return (
-    <View style={[styles.mainwrapper, {backgroundColor: themeMode.background}]}>
+    <View style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
       <StatusBar translucent backgroundColor={themeMode.background} />
       <View style={styles.headwrapper}>
         <TouchableOpacity
@@ -37,15 +38,15 @@ const Settings = ({navigation}) => {
           onPress={() => navigation.goBack()}>
           <AntDesign name={'arrowleft'} size={20} color={themeMode.text} />
         </TouchableOpacity>
-        <Text style={[styles.headtxt, {color: themeMode.text}]}>Settings</Text>
+        <Text style={[styles.headtxt, { color: themeMode.text }]}>Settings</Text>
       </View>
-      <Text style={[styles.acc, {color: themeMode.text}]}>Account</Text>
+      <Text style={[styles.acc, { color: themeMode.text }]}>Account</Text>
       <View style={styles.prfdet}>
-        <View style={[styles.Pfp, {borderColor: themeMode.accent}]}>
+        <View style={[styles.Pfp, { borderColor: themeMode.accent }]}>
           <Image
             source={
               userData.url
-                ? {uri: userData.url}
+                ? { uri: userData.url }
                 : require('../assets/images/user.png')
             }
             style={{
@@ -57,7 +58,7 @@ const Settings = ({navigation}) => {
           />
         </View>
         <View style={styles.prfvtxt}>
-          <Text style={[styles.prftxt, {color: themeMode.text}]}>
+          <Text style={[styles.prftxt, { color: themeMode.text }]}>
             {userData ? (
               <>
                 <Text>{userData.Fullname}</Text>
@@ -68,7 +69,7 @@ const Settings = ({navigation}) => {
               </>
             )}
           </Text>
-          <Text style={[styles.prfemail, {color: themeMode.accent}]}>
+          <Text style={[styles.prfemail, { color: themeMode.accent }]}>
             {userData ? (
               <>
                 <Text>{userData.Email}</Text>
@@ -89,13 +90,13 @@ const Settings = ({navigation}) => {
           </View>
         </View>
       </View>
-      <Text style={[styles.gentxt, {color: themeMode.text}]}>General</Text>
+      <Text style={[styles.gentxt, { color: themeMode.text }]}>General</Text>
       <View>
         <TouchableOpacity
           style={styles.abtus}
           onPress={() => navigation.navigate('About')}>
           <AntDesign name={'infocirlce'} size={17} color={Colors.icon} />
-          <Text style={[styles.bodytxt, {color: themeMode.icon}]}>
+          <Text style={[styles.bodytxt, { color: themeMode.icon }]}>
             About Us
           </Text>
         </TouchableOpacity>
@@ -103,7 +104,7 @@ const Settings = ({navigation}) => {
       <View>
         <TouchableOpacity style={styles.abtus}>
           <FontAwesome name={'trash'} size={17} color={Colors.icon} />
-          <Text style={[styles.bodytxt2, {color: themeMode.icon}]}>
+          <Text style={[styles.bodytxt2, { color: themeMode.icon }]}>
             Delete Account
           </Text>
         </TouchableOpacity>
@@ -117,7 +118,7 @@ const Settings = ({navigation}) => {
             size={17}
             color={Colors.icon}
           />
-          <Text style={[styles.bodytxt, {color: themeMode.icon}]}>
+          <Text style={[styles.bodytxt, { color: themeMode.icon }]}>
             Favorite / Library
           </Text>
         </TouchableOpacity>
@@ -127,7 +128,7 @@ const Settings = ({navigation}) => {
           style={styles.abtus}
           onPress={() => navigation.navigate('Suggestion')}>
           <FontAwesome name={'pencil-square-o'} size={17} color={Colors.icon} />
-          <Text style={[styles.bodytxt, {color: themeMode.icon}]}>
+          <Text style={[styles.bodytxt, { color: themeMode.icon }]}>
             Suggestion Box
           </Text>
         </TouchableOpacity>
@@ -137,7 +138,7 @@ const Settings = ({navigation}) => {
           style={styles.abtus}
           onPress={() => navigation.navigate('Search')}>
           <AntDesign name={'search1'} size={17} color={Colors.icon} />
-          <Text style={[styles.bodytxt, {color: themeMode.icon}]}>
+          <Text style={[styles.bodytxt, { color: themeMode.icon }]}>
             Search Horizons
           </Text>
         </TouchableOpacity>
@@ -145,13 +146,13 @@ const Settings = ({navigation}) => {
       <View style={styles.abtus1}>
         <Octicons name={'arrow-switch'} size={17} color={Colors.icon} />
         <TouchableOpacity>
-          <Text style={[styles.bodytxt2, {color: themeMode.icon}]}>
+          <Text style={[styles.bodytxt2, { color: themeMode.icon }]}>
             Change Theme
           </Text>
         </TouchableOpacity>
         <View style={styles.switch1}>
           <Switch
-            trackColor={{false: '#767577', true: '#dfdfdf'}}
+            trackColor={{ false: '#767577', true: '#dfdfdf' }}
             thumbColor={isEnabled ? '#6b6bee' : '#f4f3f4'}
             onValueChange={handletheme}
             value={isEnabled}
@@ -161,13 +162,13 @@ const Settings = ({navigation}) => {
       <View style={styles.abtus1}>
         <FontAwesome name={'bell'} size={17} color={Colors.icon} />
         <TouchableOpacity>
-          <Text style={[styles.bodytxt, {color: themeMode.icon}]}>
+          <Text style={[styles.bodytxt, { color: themeMode.icon }]}>
             Notifications
           </Text>
         </TouchableOpacity>
         <View style={styles.switch2}>
           <Switch
-            trackColor={{false: '#767577', true: '#dfdfdf'}}
+            trackColor={{ false: '#767577', true: '#dfdfdf' }}
             thumbColor={isEnabled1 ? '#6b6bee' : '#f4f3f4'}
             onValueChange={toggleSwitch}
             value={isEnabled1}
@@ -179,7 +180,7 @@ const Settings = ({navigation}) => {
       </Text>
       <View style={styles.logbtn}>
         <TouchableOpacity onPress={logout}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
             <Icon name={'log-out'} size={16} color={Colors.white} />
             <Text style={styles.logtxt}>Log Out</Text>
           </View>

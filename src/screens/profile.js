@@ -1,29 +1,37 @@
-import { StyleSheet, Text, View, StatusBar, TouchableOpacity, TextInput, Image } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  TouchableOpacity,
+  TextInput,
+  Image,
+} from 'react-native';
 import React, { useState } from 'react';
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserData } from '../store/actions/userAction';
-import Icon from 'react-native-vector-icons/AntDesign'
-import IconAwsm from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/AntDesign';
+import IconAwsm from 'react-native-vector-icons/FontAwesome';
 import Btn from '../assets/components/btn';
-import Icons from 'react-native-vector-icons/Entypo'
-import ImageCropPicker from 'react-native-image-crop-picker'
-import auth from '@react-native-firebase/auth'
-import storage from '@react-native-firebase/storage'
-import firestore from '@react-native-firebase/firestore'
-import * as Progress from 'react-native-progress'
+import Icons from 'react-native-vector-icons/Entypo';
+import ImageCropPicker from 'react-native-image-crop-picker';
+import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+import * as Progress from 'react-native-progress';
 
 const Profile = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
   const [Fullname, setFullname] = useState('');
   const [Currentpass, setCurrentpass] = useState('');
-  const [Newpass, setNewpass] = useState('')
+  const [Newpass, setNewpass] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [uploadProgress, setuploadProgress] = useState(0);
-  const userData = useSelector(state => state.user.Fullname)
+  const userData = useSelector(state => state.user.Fullname);
 
   const dispatch = useDispatch();
 
@@ -52,7 +60,8 @@ const Profile = ({ navigation }) => {
     try {
       setisLoading(true);
       const user = auth().currentUser;
-      const reference = storage().ref(`${user.uid}/Profile_pic/${new Date().getTime()}.jpg`,
+      const reference = storage().ref(
+        `${user.uid}/Profile_pic/${new Date().getTime()}.jpg`,
       );
 
       const task = reference.putFile(uri);
@@ -66,7 +75,10 @@ const Profile = ({ navigation }) => {
         setisLoading(false);
         const url = await reference.getDownloadURL();
         await firestore().collection('users').doc(user.uid).update({ url });
-        const imageUrl = await firestore().collection('users').doc(user.uid).get();
+        const imageUrl = await firestore()
+          .collection('users')
+          .doc(user.uid)
+          .get();
         if (imageUrl.exists) {
           dispatch(setUserData({ ...imageUrl.data() }));
         } else {
@@ -81,8 +93,7 @@ const Profile = ({ navigation }) => {
 
   return (
     <View style={[styles.mainwrap, { backgroundColor: themeMode.background }]}>
-      <StatusBar translucent
-        backgroundColor={themeMode.background} />
+      <StatusBar translucent backgroundColor={themeMode.background} />
       <View style={styles.headwrap}>
         <View style={styles.backbtn}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -94,7 +105,6 @@ const Profile = ({ navigation }) => {
         </Text>
       </View>
       <View style={[styles.Pfp, { borderColor: themeMode.accent }]}>
-
         {isLoading ? (
           <Progress.CircleSnail
             progress={uploadProgress}
@@ -126,15 +136,25 @@ const Profile = ({ navigation }) => {
       <View style={styles.contxtwrap}>
         <Text style={[styles.holdr, { color: themeMode.icon }]}>Name</Text>
         <TextInput
-          style={[styles.prompt, { color: themeMode.text, backgroundColor: themeMode.input }]}
+          style={[
+            styles.prompt,
+            { color: themeMode.text, backgroundColor: themeMode.input },
+          ]}
           onChangeText={txt => setFullname(txt)}
-          value={Fullname} />
-        <Text style={[styles.holdr, { color: themeMode.icon }]}>Current password</Text>
+          value={Fullname}
+        />
+        <Text style={[styles.holdr, { color: themeMode.icon }]}>
+          Current password
+        </Text>
         <TextInput
-          style={[styles.prompt, { color: themeMode.text, backgroundColor: themeMode.input }]}
+          style={[
+            styles.prompt,
+            { color: themeMode.text, backgroundColor: themeMode.input },
+          ]}
           secureTextEntry={!showPassword}
           onChangeText={txt => setCurrentpass(txt)}
-          value={Currentpass} />
+          value={Currentpass}
+        />
         <View style={styles.eyeIconContainer}>
           <TouchableOpacity onPress={togglePasswordVisibility}>
             <Icons
@@ -144,12 +164,18 @@ const Profile = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
-        <Text style={[styles.holdr, { color: themeMode.icon }]}>New password</Text>
+        <Text style={[styles.holdr, { color: themeMode.icon }]}>
+          New password
+        </Text>
         <TextInput
-          style={[styles.prompt, { color: themeMode.text, backgroundColor: themeMode.input }]}
+          style={[
+            styles.prompt,
+            { color: themeMode.text, backgroundColor: themeMode.input },
+          ]}
           secureTextEntry={!showPassword1}
           onChangeText={txt => setNewpass(txt)}
-          value={Newpass} />
+          value={Newpass}
+        />
         <View style={styles.eyeIconContainer1}>
           <TouchableOpacity onPress={togglePasswordVisibility1}>
             <Icons
@@ -160,15 +186,13 @@ const Profile = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <Text style={styles.passcond}>
-          The password must have at least one lowercase, one uppercase,
-          one special and one numeric character.
+          The password must have at least one lowercase, one uppercase, one
+          special and one numeric character.
         </Text>
         <View style={styles.btn}>
           <TouchableOpacity>
             <Btn>
-              <Text>
-                Update Profile
-              </Text>
+              <Text>Update Profile</Text>
             </Btn>
           </TouchableOpacity>
         </View>
@@ -184,20 +208,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headwrap: {
-    width: "100%",
+    width: '100%',
     height: 50,
     marginTop: 60,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   backbtn: {
     width: 22,
     height: 22,
-    marginLeft: 16
+    marginLeft: 16,
   },
   headtxt: {
     fontSize: 16,
     fontFamily: Fonts.bold,
-    marginLeft: 90
+    marginLeft: 90,
   },
   Pfp: {
     width: 110,
@@ -223,9 +247,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    position: "absolute",
+    position: 'absolute',
     top: 200,
-    right: 120
+    right: 120,
   },
   contxtwrap: {
     marginTop: 20,
@@ -233,7 +257,7 @@ const styles = StyleSheet.create({
   },
   holdr: {
     marginLeft: 18,
-    marginVertical: 7
+    marginVertical: 7,
   },
   prompt: {
     width: '90%',
@@ -241,10 +265,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.grey,
     borderRadius: 8,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginBottom: 8,
     fontFamily: Fonts.regular,
-    paddingLeft: 20
+    paddingLeft: 20,
   },
   passcond: {
     color: Colors.skin,
@@ -253,16 +277,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 18,
   },
   btn: {
-    marginTop: 140
+    marginTop: 140,
   },
   eyeIconContainer: {
     position: 'absolute',
     top: 130,
-    right: 40
+    right: 40,
   },
   eyeIconContainer1: {
     position: 'absolute',
     top: 215,
-    right: 40
-  }
+    right: 40,
+  },
 });
