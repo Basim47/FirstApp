@@ -4,7 +4,7 @@ const LIGHT_THEME = {
     mode: "light",
     primary: "#f8f8f8",
     background: "#FFFFFF",
-    text: "#1d1d4d",
+    text: "#080808",
     accent: "#b8b8b8",
     input: "#f8f8f8",
     icon: "#656667",
