@@ -25,7 +25,11 @@ const Suggestion = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={[styles.headtxt, { color: themeMode.text }]}>Suggestion Box</Text>
       </View>
-      <TextInput style={styles.placestyle}
+      <TextInput style={[styles.placestyle,
+      {
+        color: themeMode.text,
+        backgroundColor: themeMode.input
+      }]}
         placeholder="Write your Suggestions here..."
         placeholderTextColor={Colors.grey} />
       <View style={styles.btnview}>
@@ -44,7 +48,6 @@ export default Suggestion;
 const styles = StyleSheet.create({
   mainwrapper: {
     flex: 1,
-    backgroundColor: Colors.blue,
   },
   headwrapper: {
     flexDirection: 'row',
@@ -58,7 +61,6 @@ const styles = StyleSheet.create({
   headtxt: {
     fontFamily: Fonts.bold,
     fontSize: 15,
-    color: Colors.white,
     marginHorizontal: 80,
   },
   placestyle: {
@@ -71,7 +73,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     borderColor: Colors.grey,
     fontFamily: Fonts.medium,
-    color: Colors.white,
     textAlignVertical: 'top'
   },
   btnview: {
