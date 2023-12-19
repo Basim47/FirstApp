@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StatusBar,
-  KeyboardAvoidingView,
   ScrollView
 } from 'react-native';
 import React, { useState } from 'react';

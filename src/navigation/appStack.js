@@ -13,7 +13,6 @@ import Favorite from '../screens/favorite';
 import Suggestion from '../screens/suggestion';
 import Search from '../screens/search';
 
-
 const Stack = createNativeStackNavigator();
 const AppStack = () => {
   return (

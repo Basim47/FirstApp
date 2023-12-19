@@ -1,8 +1,15 @@
-import { StyleSheet, Text, View, StatusBar, ScrollView, TouchableOpacity, TextInput, } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import React from 'react';
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
-import { toggleTheme } from '../store/actions/themeSlice';
+import { useSelector } from 'react-redux';
 // Components
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
@@ -10,30 +17,35 @@ import Btn from '../assets/components/btn';
 // Icons
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-
 const Suggestion = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
   return (
-    <ScrollView style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
-      <StatusBar translucent
-        backgroundColor={themeMode.background} />
+    <ScrollView
+      style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
+      <StatusBar translucent backgroundColor={themeMode.background} />
       <View style={styles.headwrapper}>
         <TouchableOpacity
           style={styles.mainbody}
           onPress={() => navigation.goBack()}>
           <AntDesign name={'arrowleft'} size={20} color={themeMode.text} />
         </TouchableOpacity>
-        <Text style={[styles.headtxt, { color: themeMode.text }]}>Suggestion Box</Text>
+        <Text style={[styles.headtxt, { color: themeMode.text }]}>
+          Suggestion Box
+        </Text>
       </View>
-      <TextInput style={[styles.placestyle,
-      {
-        color: themeMode.text,
-        backgroundColor: themeMode.input
-      }]}
+      <TextInput
+        style={[
+          styles.placestyle,
+          {
+            color: themeMode.text,
+            backgroundColor: themeMode.input,
+          },
+        ]}
         placeholder="Write your Suggestions here..."
-        placeholderTextColor={Colors.grey} />
+        placeholderTextColor={Colors.grey}
+      />
       <View style={styles.btnview}>
-        <TouchableOpacity >
+        <TouchableOpacity>
           <Btn>
             <Text style={styles.btntxt}>Send</Text>
           </Btn>
@@ -73,7 +85,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     borderColor: Colors.grey,
     fontFamily: Fonts.medium,
-    textAlignVertical: 'top'
+    textAlignVertical: 'top',
   },
   btnview: {
     marginTop: 35,
