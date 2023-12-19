@@ -110,7 +110,8 @@ export default About;
 
 const styles = StyleSheet.create({
   mainwrapper: {
-    // flex: 1,
+    flex: 1,
+    // paddingBottom: 50,
     backgroundColor: Colors.blue,
   },
   headwrapper: {
@@ -131,6 +132,7 @@ const styles = StyleSheet.create({
   scrview: {
     paddingTop: 30,
     paddingHorizontal: 20,
+    // marginBottom: 50,
   },
   bodytxt: {
     color: Colors.white,
@@ -158,9 +160,13 @@ const styles = StyleSheet.create({
     height: 50,
   },
   linkbtn: {
-    marginVertical: 15,
+    alignSelf: 'center',
+    marginTop: 10,
+    marginBottom: 50,
   },
   linktxt: {
+    fontFamily: Fonts.regular,
+    fontSize: 10,
     color: Colors.skin,
   },
 });
