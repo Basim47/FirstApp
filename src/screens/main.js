@@ -6,6 +6,7 @@ import {
   StatusBar,
   Alert,
   ScrollView,
+  Image
 } from 'react-native';
 import React, { useEffect } from 'react';
 import Colors from '../assets/colors/colors';
@@ -19,9 +20,10 @@ import firestore from '@react-native-firebase/firestore';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Main = ({ navigation }) => {
+  const userData = useSelector(state => state.user.Fullname);
   const dispatch = useDispatch();
-
   const themeMode = useSelector(state => state.theme.mode);
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -61,6 +63,21 @@ const Main = ({ navigation }) => {
           <Ionicons name='settings-sharp' size={30} color={themeMode.text} />
         </TouchableOpacity>
         <Text style={[styles.headtxt, { color: themeMode.text }]}>Daily Dose of Wisdom</Text>
+        <View style={[styles.Pfp, { borderColor: themeMode.accent }]}>
+          <Image
+            source={
+              userData.url
+                ? { uri: userData.url }
+                : require('../assets/images/user.png')
+            }
+            style={{
+              width: 33,
+              height: 33,
+              borderRadius: 40,
+            }}
+            resizeMode="cover"
+          />
+        </View>
       </View>
 
       <TouchableOpacity onPress={() => navigation.navigate('Preference')}>
@@ -88,7 +105,18 @@ const styles = StyleSheet.create({
   },
   headtxt: {
     fontFamily: Fonts.bold,
-    fontSize: 16,
-    marginHorizontal: 55,
+    fontSize: 14,
+    marginLeft: 50
+  },
+  Pfp: {
+    width: 35,
+    height: 35,
+    marginLeft: 45,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: Colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
