@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   View,
   Alert,
-  StatusBar
+  StatusBar,
+  ScrollView
 } from 'react-native';
 import React, { useState } from 'react';
 import Fonts from '../assets/fonts/fonts';
@@ -63,7 +64,7 @@ const Forgetpass = ({ navigation }) => {
       <View style={styles.headwrap}>
         <Text style={styles.headtxt}>Daily Dose of Wisdom</Text>
       </View>
-      <View style={styles.contextwrap}>
+      <ScrollView style={styles.contextwrap}>
         {stage === 'email' && (
           <>
             <Text style={styles.heading}>Forget Password</Text>
@@ -132,30 +133,30 @@ const Forgetpass = ({ navigation }) => {
             </>
           )}
         </View>
-        <View style={styles.btn}>
-          <View>
-            <TouchableOpacity onPress={handleNext}>
-              {stage === 'email' && (
-                <>
-                  <Btn>
-                    <Text style={styles.btntxt}>Send</Text>
-                  </Btn>
-                </>
-              )}
-              {stage === 'otp' && (
-                <>
-                  <Btn>
-                    <Text style={styles.btntxt}>Reset Password</Text>
-                  </Btn>
-                </>
-              )}
-            </TouchableOpacity>
-          </View>
-          <View style={styles.navtxt}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text style={styles.btntxt}>Cancel</Text>
-            </TouchableOpacity>
-          </View>
+      </ScrollView>
+      <View style={styles.btn}>
+        <View>
+          <TouchableOpacity onPress={handleNext}>
+            {stage === 'email' && (
+              <>
+                <Btn>
+                  <Text style={styles.btntxt}>Send</Text>
+                </Btn>
+              </>
+            )}
+            {stage === 'otp' && (
+              <>
+                <Btn>
+                  <Text style={styles.btntxt}>Reset Password</Text>
+                </Btn>
+              </>
+            )}
+          </TouchableOpacity>
+        </View>
+        <View style={styles.navtxt}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text style={styles.btntxt}>Cancel</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -255,7 +256,7 @@ const styles = StyleSheet.create({
   btn: {
     position: 'absolute',
     width: '100%',
-    marginTop: 420,
+    top: 650
   },
   eye: {
     position: 'absolute',

@@ -7,9 +7,6 @@ import {
   StatusBar
 } from 'react-native';
 import React, { useState } from 'react';
-//Redux
-import { useDispatch } from 'react-redux';
-import { setUserData } from '../store/actions/userAction';
 //Components
 import Btn from '../assets/components/btn';
 //Fonts

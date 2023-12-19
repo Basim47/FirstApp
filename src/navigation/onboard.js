@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  StatusBar,
+} from 'react-native';
 import React from 'react';
 //Components
 import Btn from '../assets/components/btn';
@@ -12,24 +18,19 @@ import { guestLogin } from '../services/firebaseServices';
 const Onboard = ({ navigation }) => {
   return (
     <View style={styles.mainwrapper}>
-      <StatusBar translucent
-        backgroundColor={Colors.blue} />
+      <StatusBar translucent backgroundColor={Colors.blue} />
       <View style={styles.headwrapper}>
         <Text style={styles.headtxt}>Daily Dose of Wisdom</Text>
       </View>
       <View>
-        <TouchableOpacity onPress={() => navigation.navigate('AuthStack', { screen: 'Login' })}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('AuthStack', { screen: 'Login' })}>
           <Btn>
-            <Text
-              style={styles.btntxt}>
-              Log In
-            </Text>
+            <Text style={styles.btntxt}>Log In</Text>
           </Btn>
         </TouchableOpacity>
         <TouchableOpacity onPress={guestLogin}>
-          <Text style={styles.navtxt}>
-            Continue as guest
-          </Text>
+          <Text style={styles.navtxt}>Continue as guest</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -43,11 +44,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.blue,
   },
   headwrapper: {
-    width: "100%",
+    width: '100%',
     height: 622,
     marginTop: 20,
     justifyContent: 'center',
-    alignItems: "center"
+    alignItems: 'center',
   },
   headtxt: {
     fontSize: 13,

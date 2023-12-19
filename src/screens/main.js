@@ -1,28 +1,49 @@
-import { StyleSheet, Text, TouchableOpacity, View, StatusBar, Alert } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  StatusBar,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import React, { useEffect } from 'react';
-import { logout } from '../services/firebaseServices';
 import Colors from '../assets/colors/colors';
+import Fonts from '../assets/fonts/fonts';
+// Redux
 import { setUserData } from '../store/actions/userAction';
-import { useDispatch } from 'react-redux';
-import auth from '@react-native-firebase/auth'
-import firestore from '@react-native-firebase/firestore'
+import { useDispatch, useSelector } from 'react-redux';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+// Icons
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Main = ({ navigation }) => {
   const dispatch = useDispatch();
 
-
-
+  const themeMode = useSelector(state => state.theme.mode);
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userId = auth().currentUser.uid;
+        const userId = auth().currentUser;
         if (userId) {
-          const userDocument = await firestore().collection('users').doc(userId).get();
+          const userDocument = await firestore()
+            .collection('users')
+            .doc(userId.uid)
+            .get();
           if (userDocument.exists) {
-            dispatch(setUserData({ ...userDocument.data(), documentId: userDocument.id }));
+            dispatch(
+              setUserData({
+                ...userDocument.data(),
+                documentId: userDocument.id,
+              }),
+            );
+          } else {
+            Alert.alert('no data');
           }
-          else { }
-        } else { }
+        } else {
+          Alert.alert('no user');
+        }
       } catch (error) {
         console.log(error);
       }
@@ -31,30 +52,43 @@ const Main = ({ navigation }) => {
   }, []);
 
   return (
-    <View>
+    <ScrollView style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
       <StatusBar translucent
-        backgroundColor={Colors.blue} />
-      <View style={styles.headwrap}></View>
-      <TouchableOpacity onPress={logout}>
-        <View style={{ width: 70, height: 70, backgroundColor: '#000' }}>
-          <Text style={{ color: 'white' }}>logout</Text>
-        </View>
+        backgroundColor={themeMode.background} />
+      <View style={styles.headwrapper}>
+        <TouchableOpacity style={styles.mainbody}
+          onPress={() => navigation.navigate('Settings')}>
+          <Ionicons name='settings-sharp' size={30} color={themeMode.text} />
+        </TouchableOpacity>
+        <Text style={[styles.headtxt, { color: themeMode.text }]}>Daily Dose of Wisdom</Text>
+      </View>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Preference')}>
+        <Text style={{ color: themeMode.text, marginTop: 110, alignSelf: 'center' }}>Preference</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-        <View style={{ width: 70, height: 70, backgroundColor: '#000' }}>
-          <Text style={{ color: 'white' }}>Settings</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+
+    </ScrollView>
   );
 };
 
 export default Main;
 
 const styles = StyleSheet.create({
-  headwrap: {
-    width: "100%",
-    height: 40,
-    marginTop: 20
-  }
+  mainwrapper: {
+    flex: 1,
+  },
+  headwrapper: {
+    flexDirection: 'row',
+    marginTop: 60,
+    width: '100%',
+    alignItems: 'center',
+  },
+  mainbody: {
+    marginLeft: 20,
+  },
+  headtxt: {
+    fontFamily: Fonts.bold,
+    fontSize: 16,
+    marginHorizontal: 55,
+  },
 });

@@ -75,6 +75,37 @@ const logout = () => {
     .catch(() => { });
 };
 
+const delAcc = async () => {
+  const user = auth().currentUser;
+  user
+    .delete()
+    .then(async () => {
+      await firestore().collection('users').doc(user.uid).delete();
+    })
+    .catch((error) => console.log(error));
+}
+
+const UpdateData = async (Fullname, Currentpass, Newpass) => {
+  try {
+    if (!Fullname || !Currentpass || !Newpass) {
+      Alert.alert('Field Empty');
+    } else {
+      const user = auth().currentUser;
+      await firestore().collection('users').doc(user.uid).update({
+        Fullname
+      });
+      const credential = auth.EmailAuthProvider.credential(user.email, Currentpass);
+      await user.reauthenticateWithCredential(credential);
+      await user.updatePassword(Newpass);
+      Alert.alert("Profile Updated!", "Please Login with New credentials");
+      logout()
+    }
+  } catch (err) {
+    Alert.alert('Error', 'Data not Updated');
+  }
+};
+
+
 const signInWithGoogle = async (callback = () => { }) => {
   try {
     await GoogleSignin.hasPlayServices();
@@ -127,4 +158,6 @@ export {
   resetPassword,
   signInWithGoogle,
   guestLogin,
+  delAcc,
+  UpdateData
 };
