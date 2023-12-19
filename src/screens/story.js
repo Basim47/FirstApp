@@ -38,7 +38,7 @@ const Story = ({navigation}) => {
           Daily Dose of Wisdom
         </Text>
       </View>
-      <View style={styles.storymain}>
+      <View style={[styles.storymain, {backgroundColor: themeMode.input}]}>
         <Text style={[styles.titletxt, {color: themeMode.text}]}>
           Add title
         </Text>
@@ -58,11 +58,13 @@ const Story = ({navigation}) => {
           numberOfLines={20}
         />
       </View>
-      <TouchableOpacity style={[styles.touch]}>
-        <Btn>
-          <Text style={[styles.btntxt]}>Post story</Text>
-        </Btn>
-      </TouchableOpacity>
+      <View style={styles.btnwrap}>
+        <TouchableOpacity>
+          <View style={[styles.btn, {backgroundColor: themeMode.btn}]}>
+            <Text style={[styles.btntxt]}>Post story</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -98,11 +100,8 @@ const styles = StyleSheet.create({
     marginTop: 70,
     width: 320,
     height: 460,
-    borderColor: Colors.white,
-    borderWidth: 2,
-    borderRadius: 20,
-
-    borderCurve: 80,
+    elevation: 7,
+    borderRadius: 10,
   },
   titletxt: {
     marginLeft: 23,
@@ -147,5 +146,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: Fonts.medium,
     color: Colors.white,
+  },
+  btn: {
+    width: '92%',
+    height: 47,
+    borderRadius: 8,
+    elevation: 7,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnwrap: {
+    width: '100%',
+    height: 70,
+    marginTop: 20,
   },
 });

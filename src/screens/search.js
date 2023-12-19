@@ -9,17 +9,17 @@ import {
 } from 'react-native';
 import React from 'react';
 // Redux
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 // Components
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
 // Icons
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const Search = ({ navigation }) => {
+const Search = ({navigation}) => {
   const themeMode = useSelector(state => state.theme.mode);
   return (
-    <View style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
+    <View style={[styles.mainwrapper, {backgroundColor: themeMode.background}]}>
       <StatusBar translucent backgroundColor={Colors.blue} />
       <View style={styles.headwrapper}>
         <TouchableOpacity
@@ -27,13 +27,13 @@ const Search = ({ navigation }) => {
           onPress={() => navigation.goBack()}>
           <AntDesign name={'arrowleft'} size={20} color={themeMode.text} />
         </TouchableOpacity>
-        <Text style={[styles.headtxt, { color: themeMode.text }]}>
-          Suggestion Box
+        <Text style={[styles.headtxt, {color: themeMode.text}]}>
+          Daily Dose of Wisdom
         </Text>
       </View>
       <View style={styles.searchview}>
         <TextInput
-          style={[styles.placestyle, { color: themeMode.text }]}
+          style={[styles.placestyle, {color: themeMode.text}]}
           placeholder="Search here..."
           placeholderTextColor={themeMode.text}
         />
@@ -54,16 +54,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 60,
     width: '100%',
-    alignItems: 'center',
   },
   mainbody: {
     marginLeft: 20,
   },
   headtxt: {
     fontFamily: Fonts.bold,
-    fontSize: 15,
+    fontSize: 14,
     color: Colors.white,
-    marginHorizontal: 80,
+    marginHorizontal: 55,
   },
   placestyle: {
     height: 45,
