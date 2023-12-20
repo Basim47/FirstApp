@@ -5,6 +5,7 @@ import {
     StatusBar,
     TouchableOpacity,
     ScrollView,
+    KeyboardAvoidingView,
 } from 'react-native';
 import React from 'react';
 // Redux
@@ -16,13 +17,17 @@ import Fonts from '../assets/fonts/fonts';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // toptab
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+// 
+import Personal2 from './personal2';
+import Story from './story';
 
-// Screens
 
+const Tab = createMaterialTopTabNavigator();
 const Personal = ({ navigation }) => {
     const themeMode = useSelector(state => state.theme.mode);
     return (
-        <ScrollView
+        <ScrollView showsVerticalScrollIndicator={false}
             style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
             <StatusBar translucent backgroundColor={themeMode.background} />
             <View style={styles.headwrapper}>
@@ -40,7 +45,36 @@ const Personal = ({ navigation }) => {
                     Daily Dose of Wisdom
                 </Text>
             </View>
-        </ScrollView>
+            <View style={{}}>
+                <Tab.Navigator
+
+                    screenOptions={() => ({
+                        tabBarActiveTintColor: 'white',
+                        tabBarIndicatorStyle: {
+                            backgroundColor: themeMode.Tab,
+                            height: 1,
+                            width: 1,
+
+                        },
+                        tabBarScrollEnabled: false,
+                        tabBarLabelStyle: { fontSize: 12, },
+                        tabBarItemStyle: { width: 150, },
+                        tabBarStyle: {
+                            height: 40,
+                            backgroundColor: themeMode.Tab,
+                            marginTop: 40,
+                            borderRadius: 50,
+                            width: '80%',
+                            alignSelf: 'center',
+                        },
+                    })}
+                >
+                    <Tab.Screen name="Personal Preferences" component={Personal2}
+                    />
+                    <Tab.Screen name="Add Story" component={Story} />
+                </Tab.Navigator>
+            </View >
+        </ScrollView >
     );
 };
 

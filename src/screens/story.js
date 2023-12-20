@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React from 'react';
 // Redux
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 // Components
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
@@ -17,41 +17,26 @@ import Btn from '../assets/components/btn';
 // Icons
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-const Story = ({navigation}) => {
+const Story = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
   return (
     <ScrollView
-      style={[styles.mainwrapper, {backgroundColor: themeMode.background}]}>
+      style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
       <StatusBar translucent backgroundColor={themeMode.background} />
-      <View style={styles.headwrapper}>
-        <TouchableOpacity
-          style={styles.mainbody}
-          onPress={() => navigation.goBack()}>
-          <AntDesign name={'arrowleft'} size={20} color={themeMode.text} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.mainbody2}
-          onPress={() => navigation.navigate('Settings')}>
-          <Ionicons name="settings-sharp" size={30} color={themeMode.text} />
-        </TouchableOpacity>
-        <Text style={[styles.headtxt, {color: themeMode.text}]}>
-          Daily Dose of Wisdom
-        </Text>
-      </View>
-      <View style={[styles.storymain, {backgroundColor: themeMode.input}]}>
-        <Text style={[styles.titletxt, {color: themeMode.text}]}>
+      <View style={[styles.storymain, { backgroundColor: themeMode.input }]}>
+        <Text style={[styles.titletxt, { color: themeMode.text }]}>
           Add title
         </Text>
         <TextInput
-          style={[styles.titleinputstyle, {color: themeMode.text}]}
+          style={[styles.titleinputstyle, { color: themeMode.text }]}
           placeholder="Enter here..."
           placeholderTextColor={themeMode.text}
         />
-        <Text style={[styles.titletxt2, {color: themeMode.text}]}>
+        <Text style={[styles.titletxt2, { color: themeMode.text }]}>
           Add Content
         </Text>
         <TextInput
-          style={[styles.titleinputstyle2, {color: themeMode.text}]}
+          style={[styles.titleinputstyle2, { color: themeMode.text }]}
           placeholder="Enter here..."
           placeholderTextColor={themeMode.text}
           multiline
@@ -60,7 +45,7 @@ const Story = ({navigation}) => {
       </View>
       <View style={styles.btnwrap}>
         <TouchableOpacity>
-          <View style={[styles.btn, {backgroundColor: themeMode.btn}]}>
+          <View style={[styles.btn, { backgroundColor: themeMode.btn }]}>
             <Text style={[styles.btntxt]}>Post story</Text>
           </View>
         </TouchableOpacity>
@@ -75,18 +60,9 @@ const styles = StyleSheet.create({
   mainwrapper: {
     flex: 1,
   },
-  headwrapper: {
-    flexDirection: 'row',
-    marginTop: 60,
-    width: '100%',
-    alignItems: 'center',
-  },
-  mainbody: {
-    marginLeft: 20,
-  },
-  mainbody2: {
-    marginLeft: 10,
-  },
+
+
+
   headtxt: {
     fontFamily: Fonts.bold,
     fontSize: 15,
