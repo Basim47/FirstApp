@@ -5,10 +5,10 @@ import {
   View,
   StatusBar,
   Alert,
-  ScrollView,
+  FlatList,
   Image
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
 // Redux
@@ -17,12 +17,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 // Icons
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as Progress from 'react-native-progress';
 
 const Main = ({ navigation }) => {
   const userData = useSelector(state => state.user.Fullname);
   const dispatch = useDispatch();
   const themeMode = useSelector(state => state.theme.mode);
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
+  const [uploadProgress, setuploadProgress] = useState(0);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -53,8 +57,26 @@ const Main = ({ navigation }) => {
     fetchUserData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setisLoading(true);
+      try {
+        const snapshot = await firestore().collection('mainCat').get();
+        const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        const progress = data;
+        setuploadProgress(progress);
+        setCategories(data);
+        setisLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <ScrollView style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
+    <View style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
       <StatusBar translucent
         backgroundColor={themeMode.background} />
       <View style={styles.headwrapper}>
@@ -80,11 +102,97 @@ const Main = ({ navigation }) => {
         </View>
       </View>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Preference')}>
-        <Text style={{ color: themeMode.text, marginTop: 110, alignSelf: 'center' }}>Preference</Text>
-      </TouchableOpacity>
+      {isLoading ? (
+        <View style={styles.barview}>
+          <Progress.CircleSnail
+            progress={uploadProgress}
+            size={50}
+            color={Colors.skin}
+            thickness={3}
+          />
+        </View>
+      ) : (
+        <View style={styles.listview}>
 
-    </ScrollView>
+          <View>
+            <FlatList
+              data={categories}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <View>
+                  <View style={styles.catrow}>
+                    <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                      <TouchableOpacity onPress={() => navigation.navigate("Preference")}>
+                        <View style={styles.catiner}>
+                          <Text style={[styles.title, { color: themeMode.text }]}>{item.item[0]}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                      <TouchableOpacity onPress={() => navigation.navigate("Preference")}>
+                        <View style={styles.catiner}>
+                          <Text style={[styles.title, { color: themeMode.text }]}>{item.item[1]}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View style={styles.catrow}>
+                    <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                      <TouchableOpacity onPress={() => navigation.navigate("Preference")}>
+                        <View style={styles.catiner}>
+                          <Text style={[styles.title, { color: themeMode.text }]}>{item.item[2]}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                      <TouchableOpacity onPress={() => navigation.navigate("Preference")}>
+                        <View style={styles.catiner}>
+                          <Text style={[styles.title, { color: themeMode.text }]}>{item.item[3]}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View style={styles.catrow}>
+                    <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                      <TouchableOpacity onPress={() => navigation.navigate("Preference")}>
+                        <View style={styles.catiner}>
+                          <Text style={[styles.title, { color: themeMode.text }]}>{item.item[4]}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                      <TouchableOpacity onPress={() => navigation.navigate("Preference")}>
+                        <View style={styles.catiner}>
+                          <Text style={[styles.title, { color: themeMode.text }]}>{item.item[5]}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View style={styles.catrow}>
+                    <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                      <TouchableOpacity onPress={() => navigation.navigate("Preference")}>
+                        <View style={styles.catiner}>
+                          <Text style={[styles.title, { color: themeMode.text }]}>{item.item[6]}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                      <TouchableOpacity onPress={() => navigation.navigate("Preference")}>
+                        <View style={styles.catiner}>
+                          <Text style={[styles.title, { color: themeMode.text }]}>{item.item[7]}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+
+              )}
+            />
+          </View>
+        </View>
+      )}
+
+    </View>
   );
 };
 
@@ -119,4 +227,51 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  barview: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  header: {
+    width: '100%',
+    height: 60,
+    backgroundColor: '#333',
+    justifyContent: 'center',
+  },
+  headtext: {
+    fontSize: 28,
+    color: '#fff',
+    fontFamily: 'Nunito-Bold',
+    textAlign: 'center',
+  },
+  listview: {
+    width: '100%',
+    height: 600,
+    marginTop: 20,
+    paddingHorizontal: 10
+  },
+  categoryItem: {
+    width: 145,
+    height: 135,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 13,
+    borderRadius: 10,
+    elevation: 7
+  },
+  title: {
+    fontSize: 14,
+    fontFamily: Fonts.bold,
+    textAlign: 'center',
+    marginTop: 40
+  },
+  catiner: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  catrow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  }
 });
