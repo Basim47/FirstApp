@@ -4,9 +4,9 @@ import {
     View,
     StatusBar,
     TouchableOpacity,
-    ScrollView,
+    FlatList,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // Redux
 import { useSelector } from 'react-redux';
 // Components
@@ -15,10 +15,36 @@ import Fonts from '../assets/fonts/fonts';
 // Icons
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import firestore from '@react-native-firebase/firestore';
+import * as Progress from 'react-native-progress';
+
 const Preference = ({ navigation }) => {
     const themeMode = useSelector(state => state.theme.mode);
+    const [categories, setCategories] = useState([]);
+    const [isLoading, setisLoading] = useState(false);
+    const [uploadProgress, setuploadProgress] = useState(0);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setisLoading(true);
+            try {
+                const snapshot = await firestore().collection('subCat').get();
+                const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+                const progress = data;
+                setuploadProgress(progress);
+                setCategories(data);
+                setisLoading(false);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
     return (
-        <ScrollView
+        <View
             style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
             <StatusBar translucent backgroundColor={themeMode.background} />
             <View style={styles.headwrapper}>
@@ -36,19 +62,112 @@ const Preference = ({ navigation }) => {
                     Preferences
                 </Text>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('Personal')}>
-                <Text
-                    style={{ color: themeMode.text, marginTop: 80, alignSelf: 'center' }}>
-                    Personal Preference
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Story')}>
-                <Text
-                    style={{ color: themeMode.text, marginTop: 100, alignSelf: 'center' }}>
-                    Add story
-                </Text>
-            </TouchableOpacity>
-        </ScrollView>
+            {isLoading ? (
+                <View style={styles.barview}>
+                    <Progress.CircleSnail
+                        progress={uploadProgress}
+                        size={50}
+                        color={Colors.skin}
+                        thickness={3}
+                    />
+                </View>
+            ) : (
+                <View style={styles.listview}>
+
+                    <View>
+                        <FlatList
+                            data={categories}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) => (
+                                <View>
+                                    <View style={styles.catrow}>
+                                        <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("Personal")}>
+                                                <View style={styles.catiner}>
+                                                    <Text style={[styles.title, { color: themeMode.text }]}>{item.item[0]}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("Personal")}>
+                                                <View style={styles.catiner}>
+                                                    <Text style={[styles.title, { color: themeMode.text }]}>{item.item[1]}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                    <View style={styles.catrow}>
+                                        <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("Personal")}>
+                                                <View style={styles.catiner}>
+                                                    <Text style={[styles.title, { color: themeMode.text }]}>{item.item[2]}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("Personal")}>
+                                                <View style={styles.catiner}>
+                                                    <Text style={[styles.title, { color: themeMode.text }]}>{item.item[3]}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                    <View style={styles.catrow}>
+                                        <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("Personal")}>
+                                                <View style={styles.catiner}>
+                                                    <Text style={[styles.title, { color: themeMode.text }]}>{item.item[4]}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("Personal")}>
+                                                <View style={styles.catiner}>
+                                                    <Text style={[styles.title, { color: themeMode.text }]}>{item.item[5]}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                    <View style={styles.catrow}>
+                                        <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("Personal")}>
+                                                <View style={styles.catiner}>
+                                                    <Text style={[styles.title, { color: themeMode.text }]}>{item.item[6]}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("Personal")}>
+                                                <View style={styles.catiner}>
+                                                    <Text style={[styles.title, { color: themeMode.text }]}>{item.item[7]}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                    <View style={styles.catrow}>
+                                        <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("Personal")}>
+                                                <View style={styles.catiner}>
+                                                    <Text style={[styles.title, { color: themeMode.text }]}>{item.item[8]}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={[styles.categoryItem, { backgroundColor: themeMode.input }]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("Personal")}>
+                                                <View style={styles.catiner}>
+                                                    <Text style={[styles.title, { color: themeMode.text }]}>{item.item[9]}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                </View>
+
+                            )}
+                        />
+                    </View>
+                </View>
+            )}
+        </View>
     );
 };
 
@@ -77,4 +196,39 @@ const styles = StyleSheet.create({
         color: Colors.white,
         marginHorizontal: 66,
     },
+    barview: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    listview: {
+        width: '100%',
+        height: 600,
+        marginTop: 20,
+        paddingHorizontal: 10
+    },
+    categoryItem: {
+        width: 145,
+        height: 135,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 13,
+        borderRadius: 10,
+        elevation: 7
+    },
+    title: {
+        fontSize: 14,
+        fontFamily: Fonts.bold,
+        textAlign: 'center',
+        marginTop: 40
+    },
+    catiner: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    catrow: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
+    }
 });
