@@ -15,6 +15,10 @@ import Fonts from '../assets/fonts/fonts';
 // Icons
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+// toptab
+
+// Screens
+
 const Personal = ({ navigation }) => {
     const themeMode = useSelector(state => state.theme.mode);
     return (
