@@ -4,8 +4,6 @@ import {
     View,
     StatusBar,
     TouchableOpacity,
-    ScrollView,
-    KeyboardAvoidingView,
 } from 'react-native';
 import React from 'react';
 // Redux
@@ -17,17 +15,17 @@ import Fonts from '../assets/fonts/fonts';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // toptab
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-// 
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+//
 import Personal2 from './personal2';
 import Story from './story';
-
 
 const Tab = createMaterialTopTabNavigator();
 const Personal = ({ navigation }) => {
     const themeMode = useSelector(state => state.theme.mode);
     return (
-        <ScrollView showsVerticalScrollIndicator={false}
+        <View
+            showsVerticalScrollIndicator={false}
             style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
             <StatusBar translucent backgroundColor={themeMode.background} />
             <View style={styles.headwrapper}>
@@ -45,36 +43,76 @@ const Personal = ({ navigation }) => {
                     Daily Dose of Wisdom
                 </Text>
             </View>
-            <View style={{}}>
+            <View
+                style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
                 <Tab.Navigator
-
                     screenOptions={() => ({
-                        tabBarActiveTintColor: 'white',
-                        tabBarIndicatorStyle: {
-                            backgroundColor: themeMode.Tab,
-                            height: 1,
-                            width: 1,
-
-                        },
+                        tabBarActiveTintColor: Colors.black,
+                        tabBarInactiveTintColor: themeMode.text,
                         tabBarScrollEnabled: false,
-                        tabBarLabelStyle: { fontSize: 12, },
-                        tabBarItemStyle: { width: 150, },
+                        tabBarItemStyle: { width: 180 },
                         tabBarStyle: {
-                            height: 40,
+                            height: 35,
                             backgroundColor: themeMode.Tab,
-                            marginTop: 40,
+                            marginTop: 30,
+                            marginBottom: 10,
                             borderRadius: 50,
                             width: '80%',
                             alignSelf: 'center',
                         },
-                    })}
-                >
-                    <Tab.Screen name="Personal Preferences" component={Personal2}
+                        tabBarAndroidRipple: { color: "rgba(216, 223, 237, 0)", borderless: true },
+                    })}>
+                    <Tab.Screen
+                        name="Personal Preferences"
+                        component={Personal2}
+                        options={{
+                            tabBarIndicatorStyle: {
+                                backgroundColor: Colors.white,
+                                height: 25,
+                                width: 155,
+                                position: 'absolute',
+                                top: 5,
+                                left: 5,
+                                marginBottom: 10,
+                                borderRadius: 50,
+                                elevation: 7,
+                            },
+                            tabBarLabelStyle: {
+                                fontSize: 10,
+                                position: 'relative',
+                                bottom: 6,
+                                right: 10,
+                                fontFamily: Fonts.medium,
+                            },
+                        }}
                     />
-                    <Tab.Screen name="Add Story" component={Story} />
+                    <Tab.Screen
+                        name="Add Story"
+                        component={Story}
+                        options={{
+                            tabBarIndicatorStyle: {
+                                backgroundColor: Colors.white,
+                                height: 25,
+                                width: 85,
+                                position: 'absolute',
+                                top: 5,
+                                left: 18,
+                                marginBottom: 10,
+                                borderRadius: 50,
+                                elevation: 7,
+                            },
+                            tabBarLabelStyle: {
+                                fontSize: 10,
+                                position: 'relative',
+                                bottom: 6,
+                                right: 28,
+                                fontFamily: Fonts.medium,
+                            },
+                        }}
+                    />
                 </Tab.Navigator>
-            </View >
-        </ScrollView >
+            </View>
+        </View>
     );
 };
 

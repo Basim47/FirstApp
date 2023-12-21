@@ -4,7 +4,6 @@ import {
   View,
   StatusBar,
   TouchableOpacity,
-  ScrollView,
   TextInput,
 } from 'react-native';
 import React from 'react';
@@ -20,7 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const Story = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
   return (
-    <ScrollView
+    <View
       style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
       <StatusBar translucent backgroundColor={themeMode.background} />
       <View style={[styles.storymain, { backgroundColor: themeMode.input }]}>
@@ -50,7 +49,7 @@ const Story = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -60,20 +59,17 @@ const styles = StyleSheet.create({
   mainwrapper: {
     flex: 1,
   },
-
-
-
   headtxt: {
     fontFamily: Fonts.bold,
     fontSize: 15,
     color: Colors.white,
-    marginHorizontal: 45,
+    marginHorizontal: 1,
   },
   storymain: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignSelf: 'center',
-    marginTop: 70,
+    marginTop: 15,
     width: 320,
     height: 460,
     elevation: 7,
