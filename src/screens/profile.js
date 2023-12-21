@@ -145,6 +145,8 @@ const Profile = ({ navigation }) => {
             styles.prompt,
             { color: themeMode.text, backgroundColor: themeMode.input },
           ]}
+          placeholder={userData.Fullname}
+          placeholderTextColor={themeMode.text}
           onChangeText={txt => setFullname(txt)}
           value={Fullname}
         />
@@ -156,6 +158,8 @@ const Profile = ({ navigation }) => {
             styles.prompt,
             { color: themeMode.text, backgroundColor: themeMode.input },
           ]}
+          placeholder='Enter your password'
+          placeholderTextColor={themeMode.text}
           secureTextEntry={!showPassword}
           onChangeText={txt => setCurrentpass(txt)}
           value={Currentpass}
@@ -177,6 +181,8 @@ const Profile = ({ navigation }) => {
             styles.prompt,
             { color: themeMode.text, backgroundColor: themeMode.input },
           ]}
+          placeholder='Enter your password'
+          placeholderTextColor={themeMode.text}
           secureTextEntry={!showPassword1}
           onChangeText={txt => setNewpass(txt)}
           value={Newpass}

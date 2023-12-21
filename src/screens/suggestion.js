@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+// Firestore
+import firestore from '@react-native-firebase/firestore';
 // Redux
 import { useSelector } from 'react-redux';
 // Components
@@ -19,6 +21,15 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Suggestion = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
+  const [AddSuggestion, setNewSuggestion] = useState('');
+
+  const handleSuggestion = () => {
+    if (AddSuggestion === '') return;
+    firestore()
+      .collection('Suggestions')
+      .add({ Description: AddSuggestion });
+    setNewSuggestion('');
+  };
   return (
     <ScrollView
       style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
@@ -40,12 +51,15 @@ const Suggestion = ({ navigation }) => {
             color: themeMode.text,
             backgroundColor: themeMode.input,
           },
+
         ]}
         placeholder="Write your Suggestions here..."
         placeholderTextColor={Colors.grey}
+        value={AddSuggestion}
+        onChangeText={setNewSuggestion}
       />
       <View style={styles.btnview}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleSuggestion}>
           <Btn>
             <Text style={styles.btntxt}>Send</Text>
           </Btn>
@@ -80,7 +94,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '90%',
     marginTop: 43,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 7,
     paddingLeft: 20,
     borderColor: Colors.grey,
