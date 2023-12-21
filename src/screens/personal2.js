@@ -1,27 +1,38 @@
-import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import PagerView from 'react-native-pager-view';
 import firestore from '@react-native-firebase/firestore';
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
 import * as Progress from 'react-native-progress';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Share from 'react-native-share';
+import Clipboard from '@react-native-clipboard/clipboard';
+import CustomAlert from '../assets/components/customAlert';
+
 
 const Personal2 = () => {
-  const [screens, setScreens] = useState([]);
+  const [screens, setScreens] = useState('');
   const themeMode = useSelector(state => state.theme.mode);
   const [isLoading, setisLoading] = useState(false);
   const [uploadProgress, setuploadProgress] = useState(0);
   const [index, setIndex] = useState(0);
+  const [text, setText] = useState('')
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+    // Make a call to your API to update the like status
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       setisLoading(true);
       try {
         const data = await firestore().collection('stories').get();
-        setScreens(data.docs.map(doc => ({key: doc.id, ...doc.data()})));
+        setScreens(data.docs.map(doc => ({ key: doc.id, ...doc.data() })));
         const progress = screens;
         setuploadProgress(progress);
         setisLoading(false);
@@ -33,6 +44,35 @@ const Personal2 = () => {
     fetchData();
   }, []);
 
+  const handleShare = async () => {
+    try {
+      const result = await Share.open({
+        message: 'Check out this awesome app!',
+        url: 'https://your-app-link.com', // Optional
+        // Add other options as needed, e.g., for images, files, etc.
+      });
+      console.log('Share result:', result); // Handle success/failure
+    } catch (error) {
+
+    }
+  };
+
+  const handleCopy = async () => {
+    Clipboard.setString(text)
+    try {
+      // Success: Display a success message or provide feedback
+      console.log('done');
+
+      <CustomAlert message='Text copied' />
+
+    }
+    catch (error) {
+      // Error handling: Handle any errors that may occur
+      console.error('Error copying text:', error);
+    };
+  }
+
+
   const handleNext = () => {
     setIndex(prevIndex => prevIndex + 1);
   };
@@ -42,7 +82,7 @@ const Personal2 = () => {
   };
 
   return (
-    <View style={[styles.container, {backgroundColor: themeMode.background}]}>
+    <View style={[styles.container, { backgroundColor: themeMode.background }]}>
       {isLoading ? (
         <View style={styles.barview}>
           <Progress.CircleSnail
@@ -59,17 +99,17 @@ const Personal2 = () => {
               style={styles.pgView}
               initialPage={0}
               onPageSelected={event => setIndex(event.nativeEvent.position)}>
-              <View style={{flex: 1}}>
-                <View style={[styles.page, {backgroundColor: themeMode.input}]}>
+              <View style={{ flex: 1 }}>
+                <View style={[styles.page, { backgroundColor: themeMode.input }]}>
                   <View style={styles.titlev}>
-                    <Text style={[styles.stryttl, {color: themeMode.text}]}>
+                    <Text style={[styles.stryttl, { color: themeMode.text }]}>
                       {screens.items}
                     </Text>
                     <View style={styles.hicon}>
-                      <AntDesign name={'heart'} size={17} color={'maroon'} />
+                      <AntDesign name={'heart'} size={17} color={!isLiked ? themeMode.icon : Colors.skin} />
                     </View>
                   </View>
-                  <Text style={[styles.strytxt, {color: themeMode.text}]}>
+                  <Text style={[styles.strytxt, { color: themeMode.text }]}>
                     {screens.items}
                   </Text>
                   <View style={styles.iconsbar}>
@@ -80,17 +120,17 @@ const Personal2 = () => {
                         color={Colors.icon}
                       />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.like}>
-                      <AntDesign name={'hearto'} size={17} color={'maroon'} />
+                    <TouchableOpacity style={styles.like} onPress={handleLike}>
+                      <AntDesign name={'hearto'} size={17} color={!isLiked ? themeMode.icon : Colors.skin} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.like}>
+                    <TouchableOpacity style={styles.like} onPress={handleShare}>
                       <AntDesign
                         name={'sharealt'}
                         size={17}
                         color={Colors.icon}
                       />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.like}>
+                    <TouchableOpacity style={styles.like} onPress={handleCopy}>
                       <MaterialCommunityIcons
                         name={'content-save-all'}
                         size={17}
@@ -105,13 +145,13 @@ const Personal2 = () => {
               <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={handlePrev}>
                   <View
-                    style={[styles.prvbtn, {backgroundColor: themeMode.btn}]}>
+                    style={[styles.prvbtn, { backgroundColor: themeMode.btn }]}>
                     <Text style={styles.txt}>Previous</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleNext}>
                   <View
-                    style={[styles.prvbtn, {backgroundColor: themeMode.btn}]}>
+                    style={[styles.prvbtn, { backgroundColor: themeMode.btn }]}>
                     <Text style={styles.txt}>Next</Text>
                   </View>
                 </TouchableOpacity>
