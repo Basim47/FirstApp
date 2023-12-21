@@ -5,6 +5,7 @@ import {
   StatusBar,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
 import React from 'react';
 // Redux
@@ -16,6 +17,8 @@ import Fonts from '../assets/fonts/fonts';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const Favorite = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
+  // profile picture
+  const userData = useSelector(state => state.user.Fullname);
   return (
     <ScrollView
       style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
@@ -29,7 +32,23 @@ const Favorite = ({ navigation }) => {
         <Text style={[styles.headtxt, { color: themeMode.text }]}>
           Favourites
         </Text>
+        <View style={[styles.Pfp, { borderColor: themeMode.accent }]}>
+          <Image
+            source={
+              userData.url
+                ? { uri: userData.url }
+                : require('../assets/images/user.png')
+            }
+            style={{
+              width: 33,
+              height: 33,
+              borderRadius: 40,
+            }}
+            resizeMode="cover"
+          />
+        </View>
       </View>
+
     </ScrollView>
   );
 };
@@ -53,6 +72,17 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.bold,
     fontSize: 15,
     color: Colors.white,
-    marginHorizontal: 110,
+    marginLeft: 100
+  },
+  Pfp: {
+    width: 35,
+    height: 35,
+    marginLeft: 75,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: Colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
