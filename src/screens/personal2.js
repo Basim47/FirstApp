@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { PagerView } from 'react-native-pager-view'
+import PagerView from 'react-native-pager-view'
 import firestore from '@react-native-firebase/firestore';
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
 import * as Progress from 'react-native-progress';
+import { useSelector } from 'react-redux';
 
 const Personal2 = () => {
     const [screens, setScreens] = useState([]);
@@ -51,25 +52,27 @@ const Personal2 = () => {
                 </View>
             ) : (
                 <>
-                    <PagerView
-                        style={styles.pagerView}
-                        initialPage={0}
-                        onPageSelected={(event) => setIndex(event.nativeEvent.position)}
-                    >
-                        {screens.map((screen) => (
-                            <View key={screen.key} style={styles.page}>
-                                <Text>{screen.title}</Text>
-                                <Text>{screen.story}</Text>
+                    <View>
+                        <PagerView
+                            style={styles.pgView}
+                            initialPage={0}
+                            onPageSelected={(event) => setIndex(event.nativeEvent.position)}
+                        >
+                            <View style={{ flex: 1 }}>
+                                <View style={[styles.page, { backgroundColor: themeMode.input }]}>
+                                    <Text>{screens.title}</Text>
+                                    <Text style={{ color: Colors.black }}>story</Text>
+                                </View>
                             </View>
-                        ))}
-                    </PagerView>
-                    <View style={styles.buttonContainer}>
-                        <Button title="Previous" onPress={handlePrev} />
-                        <Button title="Next" onPress={handleNext} />
+                        </PagerView>
+                        <View style={styles.buttonContainer}>
+                            <Button title="Previous" onPress={handlePrev} />
+                            <Button title="Next" onPress={handleNext} />
+                        </View>
                     </View>
                 </>
             )}
-        </View>
+        </View >
     );
 };
 
@@ -79,8 +82,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    pagerView: {
-        flex: 1,
+    pgView: {
+        width: "100%",
+        height: 500,
     },
     barview: {
         flex: 1,
@@ -88,9 +92,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     page: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: '90%',
+        height: 470,
+        margin: 18,
+        elevation: 7,
+        borderRadius: 8,
     },
     buttonContainer: {
         flexDirection: 'row',
