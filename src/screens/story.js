@@ -5,19 +5,39 @@ import {
   StatusBar,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 // Redux
 import { useSelector } from 'react-redux';
 // Components
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
-import Btn from '../assets/components/btn';
-// Icons
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
+
 const Story = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
+  const [title, setTitle] = useState('');
+  const [story, setStory] = useState('');
+
+
+  const handleUpload = async () => {
+    try {
+      if (!title || !story) {
+        Alert.alert('Feilds Empty')
+      } else {
+        await firestore().collection('stories').add({
+          title,
+          story
+        })
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <View
       style={[styles.mainwrapper, { backgroundColor: themeMode.background }]}>
@@ -30,6 +50,8 @@ const Story = ({ navigation }) => {
           style={[styles.titleinputstyle, { color: themeMode.text }]}
           placeholder="Enter here..."
           placeholderTextColor={themeMode.text}
+          onChangeText={text => setTitle(text)}
+          value={title}
         />
         <Text style={[styles.titletxt2, { color: themeMode.text }]}>
           Add Content
@@ -38,12 +60,14 @@ const Story = ({ navigation }) => {
           style={[styles.titleinputstyle2, { color: themeMode.text }]}
           placeholder="Enter here..."
           placeholderTextColor={themeMode.text}
+          onChangeText={text => setStory(text)}
+          value={story}
           multiline
           numberOfLines={20}
         />
       </View>
       <View style={styles.btnwrap}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleUpload}>
           <View style={[styles.btn, { backgroundColor: themeMode.btn }]}>
             <Text style={[styles.btntxt]}>Post story</Text>
           </View>
