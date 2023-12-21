@@ -67,10 +67,11 @@ const Login = ({ navigation }) => {
             color={Colors.grey}
           />
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate('Forget')}>
-          <Text style={styles.forgettxt}>Forget Password?</Text>
-        </TouchableOpacity>
+        <View style={{ marginLeft: 207, marginTop: 15, }}>
+          <TouchableOpacity onPress={() => navigation.navigate('Forget')}>
+            <Text style={styles.forgettxt}>Forget Password?</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.btnview}>
@@ -145,9 +146,9 @@ const styles = StyleSheet.create({
   forgettxt: {
     color: Colors.skyblue,
     fontFamily: Fonts.bold,
-    marginLeft: 207,
+
     fontSize: 13,
-    marginTop: 15,
+
   },
   btnview: {
     marginTop: 150,
