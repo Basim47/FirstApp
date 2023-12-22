@@ -18,6 +18,7 @@ import Fonts from '../assets/fonts/fonts';
 import Btn from '../assets/components/btn';
 // Icons
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Snackbar from 'react-native-snackbar';
 
 const Suggestion = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
@@ -29,6 +30,13 @@ const Suggestion = ({ navigation }) => {
       .collection('Suggestions')
       .add({ Description: AddSuggestion });
     setNewSuggestion('');
+    Snackbar.show({
+      text: 'Suggestion posted!',
+      fontFamily: Fonts.medium,
+      duration: Snackbar.LENGTH_LONG,
+      backgroundColor: Colors.skin,
+      marginBottom: 680
+    })
   };
   return (
     <ScrollView

@@ -10,7 +10,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Share from 'react-native-share';
 import Clipboard from '@react-native-clipboard/clipboard';
-import CustomAlert from '../assets/components/customAlert';
+import Snackbar from 'react-native-snackbar';
 
 
 const Personal2 = () => {
@@ -51,9 +51,21 @@ const Personal2 = () => {
         url: 'https://your-app-link.com', // Optional
         // Add other options as needed, e.g., for images, files, etc.
       });
-      console.log('Share result:', result); // Handle success/failure
+      Snackbar.show({
+        text: 'Story shared!',
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      }) // Handle success/failure
     } catch (error) {
-
+      Snackbar.show({
+        text: 'Error sharing Story!',
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     }
   };
 
@@ -61,14 +73,23 @@ const Personal2 = () => {
     Clipboard.setString(text)
     try {
       // Success: Display a success message or provide feedback
-      console.log('done');
-
-      <CustomAlert message='Text copied' />
-
+      Snackbar.show({
+        text: 'Text is copied!',
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     }
     catch (error) {
       // Error handling: Handle any errors that may occur
-      console.error('Error copying text:', error);
+      Snackbar.show({
+        text: 'Error copying text!',
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     };
   }
 

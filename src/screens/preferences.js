@@ -17,6 +17,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
 import * as Progress from 'react-native-progress';
+import Snackbar from 'react-native-snackbar';
 
 const Preference = ({ navigation }) => {
     const themeMode = useSelector(state => state.theme.mode);
@@ -35,7 +36,14 @@ const Preference = ({ navigation }) => {
                 setCategories(data);
                 setisLoading(false);
             } catch (error) {
-                console.error('Error fetching data:', error);
+
+                Snackbar.show({
+                    text: 'Error fetching sub-categories!',
+                    fontFamily: Fonts.medium,
+                    duration: Snackbar.LENGTH_LONG,
+                    backgroundColor: Colors.skin,
+                    marginBottom: 680
+                })
             }
         };
 

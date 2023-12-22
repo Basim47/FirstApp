@@ -49,7 +49,7 @@ const Personal = ({ navigation }) => {
                     screenOptions={() => ({
                         tabBarActiveTintColor: Colors.black,
                         tabBarInactiveTintColor: themeMode.text,
-                        tabBarScrollEnabled: false,
+                        swipeEnabled: false,
                         tabBarItemStyle: { width: 180 },
                         tabBarStyle: {
                             height: 35,

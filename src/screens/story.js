@@ -13,8 +13,8 @@ import { useSelector } from 'react-redux';
 // Components
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import Snackbar from 'react-native-snackbar';
 
 
 const Story = ({ navigation }) => {
@@ -33,8 +33,21 @@ const Story = ({ navigation }) => {
           story
         })
       }
+      Snackbar.show({
+        text: 'Story posted successfully!',
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     } catch (error) {
-      console.log(error);
+      Snackbar.show({
+        text: 'Error posting story!',
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     }
   }
 

@@ -41,25 +41,3 @@ export const usersCollection = () => {
         })
 
 }
-
-useEffect(() => {
-    const fetchUserData = async () => {
-
-        try {
-            const userId = auth().currentUser.uid;
-            if (userId) {
-                const userDocument = await firestore().collection('users').doc(userId).get();
-                if (userDocument.exists) {
-                    dispatch(setUserData({ ...userDocument.data(), documentId: userDocument.id }));
-                } else {
-                    Alert.alert('Error', 'User data not found in Firestore');
-                }
-            } else {
-                Alert.alert('Error', 'No user identifier found');
-            }
-        } catch (error) {
-            Alert.alert('Error', 'Error fetching user data:');
-        }
-    }
-    fetchUserData();
-}, [])

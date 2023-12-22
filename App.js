@@ -13,7 +13,6 @@ import Onboard from './src/navigation/onboard';
 import AppStack from './src/navigation/appStack';
 import AuthStack from './src/navigation/authStack';
 
-
 const Stack = createNativeStackNavigator();
 const App = () => {
   const [initializing, setInitializing] = useState(true);

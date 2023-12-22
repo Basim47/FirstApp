@@ -19,6 +19,7 @@ import firestore from '@react-native-firebase/firestore';
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Progress from 'react-native-progress';
+import Snackbar from 'react-native-snackbar';
 
 const Main = ({ navigation }) => {
   const userData = useSelector(state => state.user.Fullname);
@@ -45,13 +46,20 @@ const Main = ({ navigation }) => {
               }),
             );
           } else {
-            Alert.alert('no data');
+
           }
         } else {
-          Alert.alert('no user');
+
         }
       } catch (error) {
-        console.log(error);
+
+        Snackbar.show({
+          text: 'Error fetching userdata!',
+          fontFamily: Fonts.medium,
+          duration: Snackbar.LENGTH_LONG,
+          backgroundColor: Colors.skin,
+          marginBottom: 680
+        })
       }
     };
     fetchUserData();
@@ -68,7 +76,13 @@ const Main = ({ navigation }) => {
         setCategories(data);
         setisLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        Snackbar.show({
+          text: 'Error fetching categories!',
+          fontFamily: Fonts.medium,
+          duration: Snackbar.LENGTH_LONG,
+          backgroundColor: Colors.skin,
+          marginBottom: 680
+        })
       }
     };
 

@@ -14,6 +14,7 @@ import Colors from '../assets/colors/colors';
 import Btn from '../assets/components/btn';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Entypo';
+import Snackbar from 'react-native-snackbar';
 
 const Forgetpass = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -37,8 +38,22 @@ const Forgetpass = ({ navigation }) => {
         try {
           await auth().sendPasswordResetEmail(email);
           setStage('otp');
+
+          Snackbar.show({
+            text: 'Reset mail sent!',
+            fontFamily: Fonts.medium,
+            duration: Snackbar.LENGTH_LONG,
+            backgroundColor: Colors.skin,
+            marginBottom: 680
+          })
         } catch (error) {
-          Alert.alert('Error', error.message);
+          Snackbar.show({
+            text: 'Error sending reset mail!',
+            fontFamily: Fonts.medium,
+            duration: Snackbar.LENGTH_LONG,
+            backgroundColor: Colors.skin,
+            marginBottom: 680
+          })
         }
         break;
       case 'otp':
