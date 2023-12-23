@@ -41,6 +41,7 @@ const Forgetpass = ({ navigation }) => {
 
           Snackbar.show({
             text: 'Reset mail sent!',
+            textColor: Colors.white,
             fontFamily: Fonts.medium,
             duration: Snackbar.LENGTH_LONG,
             backgroundColor: Colors.skin,
@@ -49,6 +50,7 @@ const Forgetpass = ({ navigation }) => {
         } catch (error) {
           Snackbar.show({
             text: 'Error sending reset mail!',
+            textColor: Colors.white,
             fontFamily: Fonts.medium,
             duration: Snackbar.LENGTH_LONG,
             backgroundColor: Colors.skin,

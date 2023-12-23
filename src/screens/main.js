@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   View,
   StatusBar,
-  Alert,
   FlatList,
   Image
 } from 'react-native';
@@ -55,6 +54,7 @@ const Main = ({ navigation }) => {
 
         Snackbar.show({
           text: 'Error fetching userdata!',
+          textColor: Colors.white,
           fontFamily: Fonts.medium,
           duration: Snackbar.LENGTH_LONG,
           backgroundColor: Colors.skin,
@@ -78,6 +78,7 @@ const Main = ({ navigation }) => {
       } catch (error) {
         Snackbar.show({
           text: 'Error fetching categories!',
+          textColor: Colors.white,
           fontFamily: Fonts.medium,
           duration: Snackbar.LENGTH_LONG,
           backgroundColor: Colors.skin,

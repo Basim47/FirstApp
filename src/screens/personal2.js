@@ -1,4 +1,9 @@
-import { StyleSheet, Text, View, Button, TouchableOpacity, Alert } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import PagerView from 'react-native-pager-view';
 import firestore from '@react-native-firebase/firestore';
@@ -12,14 +17,13 @@ import Share from 'react-native-share';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Snackbar from 'react-native-snackbar';
 
-
 const Personal2 = () => {
   const [screens, setScreens] = useState('');
   const themeMode = useSelector(state => state.theme.mode);
   const [isLoading, setisLoading] = useState(false);
   const [uploadProgress, setuploadProgress] = useState(0);
   const [index, setIndex] = useState(0);
-  const [text, setText] = useState('')
+  const [text, setText] = useState('');
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = () => {
@@ -46,53 +50,55 @@ const Personal2 = () => {
 
   const handleShare = async () => {
     try {
-      const result = await Share.open({
+      await Share.open({
         message: 'Check out this awesome app!',
         url: 'https://your-app-link.com', // Optional
         // Add other options as needed, e.g., for images, files, etc.
       });
       Snackbar.show({
         text: 'Story shared!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
-        marginBottom: 680
-      }) // Handle success/failure
+        marginBottom: 680,
+      }); // Handle success/failure
     } catch (error) {
       Snackbar.show({
         text: 'Error sharing Story!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
-        marginBottom: 680
-      })
+        marginBottom: 680,
+      });
     }
   };
 
   const handleCopy = async () => {
-    Clipboard.setString(text)
+    Clipboard.setString(text);
     try {
       // Success: Display a success message or provide feedback
       Snackbar.show({
         text: 'Text is copied!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
-        marginBottom: 680
-      })
-    }
-    catch (error) {
+        marginBottom: 680,
+      });
+    } catch (error) {
       // Error handling: Handle any errors that may occur
       Snackbar.show({
         text: 'Error copying text!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
-        marginBottom: 680
-      })
-    };
-  }
-
+        marginBottom: 680,
+      });
+    }
+  };
 
   const handleNext = () => {
     setIndex(prevIndex => prevIndex + 1);
@@ -127,7 +133,11 @@ const Personal2 = () => {
                       {screens.items}
                     </Text>
                     <View style={styles.hicon}>
-                      <AntDesign name={'heart'} size={17} color={!isLiked ? themeMode.icon : Colors.skin} />
+                      <AntDesign
+                        name={'heart'}
+                        size={17}
+                        color={!isLiked ? Colors.icon : Colors.skin}
+                      />
                     </View>
                   </View>
                   <Text style={[styles.strytxt, { color: themeMode.text }]}>
@@ -142,7 +152,11 @@ const Personal2 = () => {
                       />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.like} onPress={handleLike}>
-                      <AntDesign name={'hearto'} size={17} color={!isLiked ? themeMode.icon : Colors.skin} />
+                      <AntDesign
+                        name={'hearto'}
+                        size={17}
+                        color={!isLiked ? Colors.icon : Colors.skin}
+                      />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.like} onPress={handleShare}>
                       <AntDesign

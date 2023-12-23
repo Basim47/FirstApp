@@ -16,7 +16,6 @@ import Fonts from '../assets/fonts/fonts';
 import firestore from '@react-native-firebase/firestore';
 import Snackbar from 'react-native-snackbar';
 
-
 const Story = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
   const [title, setTitle] = useState('');
@@ -35,6 +34,7 @@ const Story = ({ navigation }) => {
       }
       Snackbar.show({
         text: 'Story posted successfully!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -43,6 +43,7 @@ const Story = ({ navigation }) => {
     } catch (error) {
       Snackbar.show({
         text: 'Error posting story!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,

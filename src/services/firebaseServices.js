@@ -1,8 +1,9 @@
 import auth from '@react-native-firebase/auth';
 import { Alert } from 'react-native';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import firestore from "@react-native-firebase/firestore"
+import firestore from "@react-native-firebase/firestore";
 import Snackbar from 'react-native-snackbar';
+import Colors from '../assets/colors/colors';
+import Fonts from '../assets/fonts/fonts';
 
 const registerUserWithEmail = async (name, email, pass, callback = () => { }) => {
   const Fullname = name;
@@ -27,6 +28,7 @@ const registerUserWithEmail = async (name, email, pass, callback = () => { }) =>
       }
       Snackbar.show({
         text: 'Registered successfully!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -36,6 +38,7 @@ const registerUserWithEmail = async (name, email, pass, callback = () => { }) =>
     .catch(error => {
       Snackbar.show({
         text: 'Error registering user!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -50,6 +53,7 @@ const loginWithEmail = (email, pass) => {
     .then(user => {
       Snackbar.show({
         text: 'Logged-in sccessfully!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -59,6 +63,7 @@ const loginWithEmail = (email, pass) => {
     .catch(error => {
       Snackbar.show({
         text: 'Error fetching user!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -73,6 +78,7 @@ const guestLogin = () => {
     .then(data => {
       Snackbar.show({
         text: 'Guest loggrd-in successfully!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -94,6 +100,7 @@ const resetPassword = email => {
     .then(data => {
       Snackbar.show({
         text: 'Reset mail sent!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -103,6 +110,7 @@ const resetPassword = email => {
     .catch(error => {
       Snackbar.show({
         text: 'Enter correct email!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -117,6 +125,7 @@ const logout = () => {
     .then(() => {
       Snackbar.show({
         text: 'Logged-out successfully!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -134,6 +143,7 @@ const delAcc = async () => {
       await firestore().collection('users').doc(user.uid).delete();
       Snackbar.show({
         text: 'Account deleted!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -158,6 +168,7 @@ const UpdateData = async (Fullname, Currentpass, Newpass) => {
       logout()
       Snackbar.show({
         text: 'Updated! Please login with new password',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,
@@ -167,6 +178,7 @@ const UpdateData = async (Fullname, Currentpass, Newpass) => {
   } catch (err) {
     Snackbar.show({
       text: 'Error updating password!',
+      textColor: Colors.white,
       fontFamily: Fonts.medium,
       duration: Snackbar.LENGTH_LONG,
       backgroundColor: Colors.skin,

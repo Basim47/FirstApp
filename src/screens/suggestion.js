@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 // Firestore
 import firestore from '@react-native-firebase/firestore';
 // Redux
@@ -32,6 +32,7 @@ const Suggestion = ({ navigation }) => {
     setNewSuggestion('');
     Snackbar.show({
       text: 'Suggestion posted!',
+      textColor: Colors.white,
       fontFamily: Fonts.medium,
       duration: Snackbar.LENGTH_LONG,
       backgroundColor: Colors.skin,

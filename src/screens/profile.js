@@ -57,6 +57,7 @@ const Profile = ({ navigation }) => {
 
         Snackbar.show({
           text: 'Profile picture uploaded!',
+          textColor: Colors.white,
           fontFamily: Fonts.medium,
           duration: Snackbar.LENGTH_LONG,
           backgroundColor: Colors.skin,
@@ -99,6 +100,7 @@ const Profile = ({ navigation }) => {
       setisLoading(false);
       Snackbar.show({
         text: 'Check internt connection!',
+        textColor: Colors.white,
         fontFamily: Fonts.medium,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: Colors.skin,

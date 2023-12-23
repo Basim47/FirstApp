@@ -39,6 +39,7 @@ const Preference = ({ navigation }) => {
 
                 Snackbar.show({
                     text: 'Error fetching sub-categories!',
+                    textColor: Colors.white,
                     fontFamily: Fonts.medium,
                     duration: Snackbar.LENGTH_LONG,
                     backgroundColor: Colors.skin,
