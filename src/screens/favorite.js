@@ -15,6 +15,7 @@ import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
 // Icons
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
 const Favorite = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
   // profile picture

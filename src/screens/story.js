@@ -13,9 +13,8 @@ import { useSelector } from 'react-redux';
 // Components
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-
+import Snackbar from 'react-native-snackbar';
 
 const Story = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
@@ -33,8 +32,23 @@ const Story = ({ navigation }) => {
           story
         })
       }
+      Snackbar.show({
+        text: 'Story posted successfully!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     } catch (error) {
-      console.log(error);
+      Snackbar.show({
+        text: 'Error posting story!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     }
   }
 

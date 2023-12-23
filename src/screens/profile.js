@@ -22,6 +22,7 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import * as Progress from 'react-native-progress';
 import { UpdateData } from '../services/firebaseServices';
+import Snackbar from 'react-native-snackbar';
 
 const Profile = ({ navigation }) => {
   const themeMode = useSelector(state => state.theme.mode);
@@ -53,6 +54,15 @@ const Profile = ({ navigation }) => {
     })
       .then(res => {
         upload(res.path);
+
+        Snackbar.show({
+          text: 'Profile picture uploaded!',
+          textColor: Colors.white,
+          fontFamily: Fonts.medium,
+          duration: Snackbar.LENGTH_LONG,
+          backgroundColor: Colors.skin,
+          marginBottom: 680
+        })
       })
       .catch(err => { });
   };
@@ -88,7 +98,14 @@ const Profile = ({ navigation }) => {
       });
     } catch (error) {
       setisLoading(false);
-      console.log(error);
+      Snackbar.show({
+        text: 'Check internt connection!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     }
   };
 

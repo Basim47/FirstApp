@@ -1,7 +1,9 @@
 import auth from '@react-native-firebase/auth';
 import { Alert } from 'react-native';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import firestore from "@react-native-firebase/firestore"
+import firestore from "@react-native-firebase/firestore";
+import Snackbar from 'react-native-snackbar';
+import Colors from '../assets/colors/colors';
+import Fonts from '../assets/fonts/fonts';
 
 const registerUserWithEmail = async (name, email, pass, callback = () => { }) => {
   const Fullname = name;
@@ -24,10 +26,24 @@ const registerUserWithEmail = async (name, email, pass, callback = () => { }) =>
           });
         }
       }
-      console.log(user);
+      Snackbar.show({
+        text: 'Registered successfully!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     })
     .catch(error => {
-      console.log(error);;
+      Snackbar.show({
+        text: 'Error registering user!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     });
 };
 
@@ -35,10 +51,24 @@ const loginWithEmail = (email, pass) => {
   auth()
     .signInWithEmailAndPassword(email, pass)
     .then(user => {
-      console.log(user);
+      Snackbar.show({
+        text: 'Logged-in sccessfully!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      });
     })
     .catch(error => {
-      console.log(error);
+      Snackbar.show({
+        text: 'Error fetching user!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      });
     });
 };
 
@@ -46,7 +76,14 @@ const guestLogin = () => {
   auth()
     .signInAnonymously()
     .then(data => {
-      console.log(data);
+      Snackbar.show({
+        text: 'Guest loggrd-in successfully!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     })
     .catch(error => {
       if (error.code === 'auth/operation-not-allowed') {
@@ -61,17 +98,40 @@ const resetPassword = email => {
   auth()
     .sendPasswordResetEmail(email)
     .then(data => {
-      console.log(data);
+      Snackbar.show({
+        text: 'Reset mail sent!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     })
     .catch(error => {
-      console.log(error);
+      Snackbar.show({
+        text: 'Enter correct email!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      });
     });
 };
 
 const logout = () => {
   auth()
     .signOut()
-    .then(() => { })
+    .then(() => {
+      Snackbar.show({
+        text: 'Logged-out successfully!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
+    })
     .catch(() => { });
 };
 
@@ -81,6 +141,14 @@ const delAcc = async () => {
     .delete()
     .then(async () => {
       await firestore().collection('users').doc(user.uid).delete();
+      Snackbar.show({
+        text: 'Account deleted!',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     })
     .catch((error) => console.log(error));
 }
@@ -97,49 +165,25 @@ const UpdateData = async (Fullname, Currentpass, Newpass) => {
       const credential = auth.EmailAuthProvider.credential(user.email, Currentpass);
       await user.reauthenticateWithCredential(credential);
       await user.updatePassword(Newpass);
-      Alert.alert("Profile Updated!", "Please Login with New credentials");
       logout()
+      Snackbar.show({
+        text: 'Updated! Please login with new password',
+        textColor: Colors.white,
+        fontFamily: Fonts.medium,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: Colors.skin,
+        marginBottom: 680
+      })
     }
   } catch (err) {
-    Alert.alert('Error', 'Data not Updated');
-  }
-};
-
-
-const signInWithGoogle = async (callback = () => { }) => {
-  try {
-    await GoogleSignin.hasPlayServices();
-
-    const isSignediN = await GoogleSignin.isSignedIn();
-    if (isSignediN) {
-      await GoogleSignin.revokeAccess();
-    }
-    const { idToken, user } = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-    const Fullname = user.name;
-    const Email = user.email;
-    auth()
-      .signInWithCredential(googleCredential)
-      .then(async user => {
-        if (user.user.uid) {
-          const exists = await firestore()
-            .collection('users')
-            .doc(user.user.uid)
-            .get();
-          if (exists.exists) {
-          } else {
-            storedata(Fullname, Email, user.user.uid);
-            callback({
-              Fullname,
-              Email,
-              userId: user.user.uid,
-            });
-          }
-        }
-      });
-  } catch (error) {
-    Alert.alert('Failed', JSON.stringify(error.message));
+    Snackbar.show({
+      text: 'Error updating password!',
+      textColor: Colors.white,
+      fontFamily: Fonts.medium,
+      duration: Snackbar.LENGTH_LONG,
+      backgroundColor: Colors.skin,
+      marginBottom: 680
+    })
   }
 };
 
@@ -156,7 +200,6 @@ export {
   logout,
   loginWithEmail,
   resetPassword,
-  signInWithGoogle,
   guestLogin,
   delAcc,
   UpdateData
