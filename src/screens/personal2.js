@@ -3,6 +3,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import PagerView from 'react-native-pager-view';
@@ -18,7 +19,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import Snackbar from 'react-native-snackbar';
 
 const Personal2 = () => {
-  const [screens, setScreens] = useState('');
+  const [screens, setScreens] = useState([]);
   const themeMode = useSelector(state => state.theme.mode);
   const [isLoading, setisLoading] = useState(false);
   const [uploadProgress, setuploadProgress] = useState(0);
@@ -35,8 +36,10 @@ const Personal2 = () => {
     const fetchData = async () => {
       setisLoading(true);
       try {
-        const data = await firestore().collection('stories').get();
-        setScreens(data.docs.map(doc => ({ key: doc.id, ...doc.data() })));
+        const data = firestore().collection('stories').onSnapshot(snapshot => {
+          const screendata = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setScreens(screendata);
+        })
         const progress = screens;
         setuploadProgress(progress);
         setisLoading(false);
@@ -101,11 +104,11 @@ const Personal2 = () => {
   };
 
   const handleNext = () => {
-    setIndex(prevIndex => prevIndex + 1);
+    setIndex(index => index + 1);
   };
 
   const handlePrev = () => {
-    setIndex(prevIndex => prevIndex - 1);
+    setIndex(index => index - 1);
   };
 
   return (
@@ -122,60 +125,67 @@ const Personal2 = () => {
       ) : (
         <>
           <View>
-            <PagerView
-              style={styles.pgView}
-              initialPage={0}
-              onPageSelected={event => setIndex(event.nativeEvent.position)}>
-              <View style={{ flex: 1 }}>
-                <View style={[styles.page, { backgroundColor: themeMode.input }]}>
-                  <View style={styles.titlev}>
-                    <Text style={[styles.stryttl, { color: themeMode.text }]}>
-                      {screens.items}
-                    </Text>
-                    <View style={styles.hicon}>
-                      <AntDesign
-                        name={'heart'}
-                        size={17}
-                        color={!isLiked ? Colors.icon : Colors.skin}
-                      />
+            <FlatList
+              data={screens}
+              horizontal
+              renderItem={({ item }) => (
+                <View>
+                  <PagerView
+                    style={styles.pgView}
+                    initialPage={0}
+                    onPageSelected={e => setIndex(e.nativeEvent.position)}>
+                    <View style={{ flex: 1 }}>
+                      <View style={[styles.page, { backgroundColor: themeMode.input }]}>
+                        <View style={styles.titlev}>
+                          <Text style={[styles.stryttl, { color: themeMode.text }]}>
+                            {item.title}
+                          </Text>
+                          <View style={styles.hicon}>
+                            <AntDesign
+                              name={'heart'}
+                              size={17}
+                              color={!isLiked ? Colors.icon : Colors.skin}
+                            />
+                          </View>
+                        </View>
+                        <Text style={[styles.strytxt, { color: themeMode.text }]}>
+                          {item.story}
+                        </Text>
+                        <View style={styles.iconsbar}>
+                          <TouchableOpacity>
+                            <MaterialCommunityIcons
+                              name={'bookmark-multiple-outline'}
+                              size={17}
+                              color={Colors.icon}
+                            />
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.like} onPress={handleLike}>
+                            <AntDesign
+                              name={'hearto'}
+                              size={17}
+                              color={!isLiked ? Colors.icon : Colors.skin}
+                            />
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.like} onPress={handleShare}>
+                            <AntDesign
+                              name={'sharealt'}
+                              size={17}
+                              color={Colors.icon}
+                            />
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.like} onPress={() => handleCopy(setText(item.story))}>
+                            <MaterialCommunityIcons
+                              name={'content-save-all'}
+                              size={17}
+                              color={Colors.icon}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
                     </View>
-                  </View>
-                  <Text style={[styles.strytxt, { color: themeMode.text }]}>
-                    {screens.items}
-                  </Text>
-                  <View style={styles.iconsbar}>
-                    <TouchableOpacity>
-                      <MaterialCommunityIcons
-                        name={'bookmark-multiple-outline'}
-                        size={17}
-                        color={Colors.icon}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.like} onPress={handleLike}>
-                      <AntDesign
-                        name={'hearto'}
-                        size={17}
-                        color={!isLiked ? Colors.icon : Colors.skin}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.like} onPress={handleShare}>
-                      <AntDesign
-                        name={'sharealt'}
-                        size={17}
-                        color={Colors.icon}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.like} onPress={handleCopy}>
-                      <MaterialCommunityIcons
-                        name={'content-save-all'}
-                        size={17}
-                        color={Colors.icon}
-                      />
-                    </TouchableOpacity>
-                  </View>
+                  </PagerView>
                 </View>
-              </View>
-            </PagerView>
+              )} />
             <View>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={handlePrev}>
@@ -206,8 +216,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   pgView: {
-    width: '100%',
-    height: 500,
+    height: 505,
+    width: 360
   },
   barview: {
     flex: 1,
@@ -224,8 +234,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 100,
-    height: 70,
+    width: 330,
+    height: 90,
+    marginHorizontal: 15
   },
   stryttl: {
     fontFamily: Fonts.bold,
@@ -240,14 +251,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   prvbtn: {
-    borderColor: 'red',
-    width: 140,
+    width: 160,
     height: 47,
     borderRadius: 8,
     elevation: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 20,
+    marginVertical: 20,
   },
   txt: {
     fontFamily: Fonts.regular,
