@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 // Firestore
+import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
 // Redux
 import { useSelector } from 'react-redux';
@@ -26,9 +27,10 @@ const Suggestion = ({ navigation }) => {
 
   const handleSuggestion = () => {
     if (AddSuggestion === '') return;
+    const user = auth().currentUser
     firestore()
       .collection('Suggestions')
-      .add({ Description: AddSuggestion });
+      .add({ Description: AddSuggestion, userid: user.uid });
     setNewSuggestion('');
     Snackbar.show({
       text: 'Suggestion posted!',
