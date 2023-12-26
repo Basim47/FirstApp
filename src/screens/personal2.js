@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import PagerView from 'react-native-pager-view';
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import Colors from '../assets/colors/colors';
 import Fonts from '../assets/fonts/fonts';
@@ -27,9 +28,35 @@ const Personal2 = () => {
   const [text, setText] = useState('');
   const [isLiked, setIsLiked] = useState(false);
 
-  const handleLike = () => {
+
+  const handleLike = async () => {
     setIsLiked(!isLiked);
-    // Make a call to your API to update the like status
+    const user = auth().currentUser;
+    await firestore().collection('users').doc(user.uid).collection('liked').add({ data: screens[index] });
+  };
+
+  useEffect(() => {
+    const fetchLike = async () => {
+      try {
+        const user = auth().currentUser;
+        if (user) {
+          await firestore().collection('users').doc(user.uid).collection('liked').doc().get();
+          setIsLiked(!isLiked)
+        } else {
+
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+      // Make a call to your API to update the like status
+    };
+    fetchLike();
+  }, []);
+
+  const handleSave = async () => {
+    const user = auth().currentUser
+    await firestore().collection('users').doc(user.uid).collection('Saved').add({ data: screens[index] })
   };
 
   useEffect(() => {
@@ -54,8 +81,7 @@ const Personal2 = () => {
   const handleShare = async () => {
     try {
       await Share.open({
-        message: 'Check out this awesome app!',
-        url: 'https://your-app-link.com', // Optional
+        message: text, // Optional
         // Add other options as needed, e.g., for images, files, etc.
       });
       Snackbar.show({
@@ -128,7 +154,8 @@ const Personal2 = () => {
             <FlatList
               data={screens}
               horizontal
-              renderItem={({ item }) => (
+              pagingEnabled
+              renderItem={({ item, index }) => (
                 <View>
                   <PagerView
                     style={styles.pgView}
@@ -152,7 +179,7 @@ const Personal2 = () => {
                           {item.story}
                         </Text>
                         <View style={styles.iconsbar}>
-                          <TouchableOpacity>
+                          <TouchableOpacity onPress={handleSave}>
                             <MaterialCommunityIcons
                               name={'bookmark-multiple-outline'}
                               size={17}
@@ -166,7 +193,7 @@ const Personal2 = () => {
                               color={!isLiked ? Colors.icon : Colors.skin}
                             />
                           </TouchableOpacity>
-                          <TouchableOpacity style={styles.like} onPress={handleShare}>
+                          <TouchableOpacity style={styles.like} onPress={() => handleShare(setText(item.story))}>
                             <AntDesign
                               name={'sharealt'}
                               size={17}
