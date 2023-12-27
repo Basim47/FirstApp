@@ -40,8 +40,10 @@ const Personal2 = () => {
       try {
         const user = auth().currentUser;
         if (user) {
-          await firestore().collection('users').doc(user.uid).collection('liked').doc().get();
-          setIsLiked(!isLiked)
+          const liked = await firestore().collection('users').doc(user.uid).collection('liked').doc().get();
+          if (liked.exists) {
+            setIsLiked(!isLiked)
+          }
         } else {
 
         }
